@@ -45,15 +45,14 @@ def main():
         models = create_model_dict()
         
         # Parse config with default options and reduced batch sizes for limited GPU memory
-        # Ultra low batch sizes for 6GB GPU with other processes running
         config_parser = ConfigParser({
             "output_format": "markdown",
             "output_dir": "./output",
-            "layout_batch_size": 1,  # Minimal batch size
+            "layout_batch_size": 1,
             "detection_batch_size": 1,
             "table_rec_batch_size": 1,
             "ocr_error_batch_size": 1,
-            "recognition_batch_size": 4,  # Keep this slightly higher for speed
+            "recognition_batch_size": 4,
             "equation_batch_size": 1,
         })
         
