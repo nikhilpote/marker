@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marker Question Builder</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f5f5f8;
+      color: #1f2933;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      box-shadow: 0 3px 12px rgba(60,64,67,0.18);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    main {
+      flex: 1;
+      padding: 2rem clamp(1rem, 4vw, 3rem);
+      display: grid;
+      grid-template-columns: minmax(260px, 380px) minmax(420px, 1fr);
+      gap: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 1.75rem;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+    }
+    input[type="file"] {
+      padding: 1rem;
+      border: 2px dashed #c3c7f9;
+      border-radius: 14px;
+      background: #f8f9ff;
+    }
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 0.9rem 1.4rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background: #4338ca;
+      transform: translateY(-1px);
+    }
+    button:disabled {
+      background: #cbd5f5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .status {
+      border-radius: 14px;
+      padding: 1.2rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      line-height: 1.6;
+    }
+    .status .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .links a {
+      text-decoration: none;
+      background: #eef2ff;
+      color: #4338ca;
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+    .links a:hover {
+      background: #dbeafe;
+    }
+    .preview iframe {
+      width: 100%;
+      min-height: 70vh;
+      border: none;
+      border-radius: 16px;
+      background: white;
+      box-shadow: inset 0 0 0 1px #e2e8f0;
+    }
+    .hidden {
+      display: none;
+    }
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .preview iframe {
+        min-height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Marker Assisted Question Builder</h1>
+    <p>Upload a document, let Marker GPU conversion run, then curate questions with confidence.</p>
+  </header>
+  <main>
+    <section class="card" id="upload-card">
+      <h2>Step 1 · Provide Document</h2>
+      <form id="upload-form">
+        <label>
+          Upload PDF or image file for GPU conversion
+          <input type="file" id="file-input" accept="application/pdf,image/*" />
+        </label>
+        <button type="submit" id="upload-button">Queue GPU Conversion</button>
+      </form>
+      <div style="border-top: 1px solid #e2e8f0; margin: 1rem 0;"></div>
+      <form id="json-form">
+        <label>
+          Or load an existing Marker JSON export
+          <input type="file" id="json-input" accept="application/json,.json" />
+        </label>
+        <button type="submit" id="json-button">Import JSON</button>
+      </form>
+      <div class="status hidden" id="status-panel">
+        <div><span class="badge" id="status-badge">Waiting</span></div>
+        <p id="status-text"></p>
+        <div id="job-meta"></div>
+      </div>
+    </section>
+
+    <section class="card preview" id="preview-card">
+      <h2>Step 2 · Review Output</h2>
+      <div id="result-links" class="links hidden"></div>
+      <iframe id="html-preview" title="Rendered Output" class="hidden"></iframe>
+      <p id="preview-placeholder">Once conversion finishes, a live preview and handy download links will appear here.</p>
+    </section>
+  </main>
+
+  <script>
+    const uploadForm = document.getElementById('upload-form');
+    const fileInput = document.getElementById('file-input');
+    const uploadButton = document.getElementById('upload-button');
+    const jsonForm = document.getElementById('json-form');
+    const jsonInput = document.getElementById('json-input');
+    const jsonButton = document.getElementById('json-button');
+    const statusPanel = document.getElementById('status-panel');
+    const statusBadge = document.getElementById('status-badge');
+    const statusText = document.getElementById('status-text');
+    const jobMeta = document.getElementById('job-meta');
+    const resultLinks = document.getElementById('result-links');
+    const previewPlaceholder = document.getElementById('preview-placeholder');
+    const htmlPreview = document.getElementById('html-preview');
+
+    let pollingInterval = null;
+    let currentMode = 'upload';
+
+    const setStatus = (label, text, tone = 'info') => {
+      statusPanel.classList.remove('hidden');
+      statusBadge.textContent = label;
+      statusText.textContent = text;
+      const toneStyles = {
+        info: { bg: '#e0f2fe', fg: '#0369a1' },
+        success: { bg: '#dcfce7', fg: '#15803d' },
+        danger: { bg: '#fee2e2', fg: '#b91c1c' },
+        pending: { bg: '#ede9fe', fg: '#6d28d9' }
+      };
+      const { bg, fg } = toneStyles[tone] || toneStyles.info;
+      statusBadge.style.background = bg;
+      statusBadge.style.color = fg;
+    };
+
+    const resetPreview = () => {
+      resultLinks.classList.add('hidden');
+      resultLinks.innerHTML = '';
+      htmlPreview.classList.add('hidden');
+      htmlPreview.removeAttribute('src');
+      previewPlaceholder.classList.remove('hidden');
+    };
+
+    const toggleForms = (disabled) => {
+      uploadButton.disabled = disabled;
+      fileInput.disabled = disabled;
+      jsonButton.disabled = disabled;
+      jsonInput.disabled = disabled;
+    };
+
+    const createLink = (label, href) => {
+      const link = document.createElement('a');
+      link.textContent = label;
+      link.href = href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      return link;
+    };
+
+    const populateResults = (jobId, result) => {
+      resetPreview();
+      resultLinks.classList.remove('hidden');
+      previewPlaceholder.classList.add('hidden');
+
+      if (result.json_path) {
+        resultLinks.appendChild(createLink('Download JSON', `/api/jobs/${jobId}/file?type=json`));
+      }
+      if (result.metadata_path) {
+        resultLinks.appendChild(createLink('Download Metadata', `/api/jobs/${jobId}/file?type=metadata`));
+      }
+      if (result.html_path) {
+        const htmlLink = createLink('Download Rendered HTML', `/api/jobs/${jobId}/file?type=html`);
+        resultLinks.appendChild(htmlLink);
+        htmlPreview.src = `/api/jobs/${jobId}/file?type=html`;
+        htmlPreview.classList.remove('hidden');
+      }
+
+      if (Array.isArray(result.assets) && result.assets.length > 0) {
+        const assetsContainer = document.createElement('div');
+        assetsContainer.style.width = '100%';
+        assetsContainer.innerHTML = '<h3>Images</h3>';
+        const list = document.createElement('div');
+        list.style.display = 'flex';
+        list.style.flexWrap = 'wrap';
+        list.style.gap = '0.75rem';
+        result.assets.forEach((asset) => {
+          const thumb = document.createElement('a');
+          thumb.textContent = asset;
+          thumb.href = `/api/jobs/${jobId}/file?type=asset&name=${encodeURIComponent(asset)}`;
+          thumb.target = '_blank';
+          thumb.rel = 'noopener noreferrer';
+          thumb.style.padding = '0.5rem 0.75rem';
+          thumb.style.background = '#f1f5f9';
+          thumb.style.borderRadius = '10px';
+          thumb.style.fontWeight = '600';
+          list.appendChild(thumb);
+        });
+        assetsContainer.appendChild(list);
+        resultLinks.appendChild(assetsContainer);
+      }
+    };
+
+    const statusMessages = {
+      upload: {
+        queued: 'Waiting for GPU worker to pick up the document.',
+        processing: 'Marker is converting your document on GPU. Sit tight!',
+        completed: 'Conversion succeeded. You can review outputs below.',
+        failed: 'Conversion failed. Please try again.',
+        error: 'Lost connection while polling. Please refresh or try again.'
+      },
+      json: {
+        queued: 'Preparing your JSON export for review.',
+        processing: 'Rendering the uploaded JSON.',
+        completed: 'JSON imported successfully. Review the outputs below.',
+        failed: 'Unable to import JSON. Please ensure the file is a valid Marker export.',
+        error: 'Lost connection while polling. Please refresh or try again.'
+      }
+    };
+
+    const pollJob = (jobId) => {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+
+      pollingInterval = setInterval(async () => {
+        try {
+          const res = await fetch(`/api/jobs/${jobId}/status`);
+          if (!res.ok) throw new Error('Failed to poll job');
+          const payload = await res.json();
+          jobMeta.innerHTML = `<strong>Job ID:</strong> ${payload.job_id}<br /><strong>File:</strong> ${payload.filename}`;
+
+          switch (payload.status) {
+            case 'queued':
+              setStatus('Queued', statusMessages[currentMode].queued, 'pending');
+              break;
+            case 'processing':
+              setStatus('Processing', statusMessages[currentMode].processing, 'pending');
+              break;
+            case 'completed':
+              clearInterval(pollingInterval);
+              setStatus('Completed', statusMessages[currentMode].completed, 'success');
+              populateResults(jobId, payload.result || {});
+              toggleForms(false);
+              break;
+            case 'failed':
+              clearInterval(pollingInterval);
+              setStatus('Failed', payload.error || statusMessages[currentMode].failed, 'danger');
+              toggleForms(false);
+              resetPreview();
+              break;
+            default:
+              setStatus(payload.status, 'Status update received.', 'info');
+          }
+        } catch (error) {
+          console.error(error);
+          clearInterval(pollingInterval);
+          setStatus('Error', statusMessages[currentMode].error, 'danger');
+          toggleForms(false);
+        }
+      }, 2000);
+    };
+
+    const beginJobMonitoring = (job, mode) => {
+      currentMode = mode;
+      jobMeta.innerHTML = `<strong>Job ID:</strong> ${job.job_id}<br /><strong>File:</strong> ${job.filename}`;
+      if (job.status === 'completed') {
+        setStatus('Completed', statusMessages[mode].completed, 'success');
+        populateResults(job.job_id, job.result || {});
+        toggleForms(false);
+      } else {
+        setStatus('Queued', statusMessages[mode].queued, 'pending');
+        pollJob(job.job_id);
+      }
+    };
+
+    uploadForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!fileInput.files.length) {
+        setStatus('Error', 'Please choose a PDF or image file.', 'danger');
+        return;
+      }
+
+      resetPreview();
+      toggleForms(true);
+      currentMode = 'upload';
+      setStatus('Uploading', 'Sending file to Marker GPU service...', 'pending');
+
+      const data = new FormData();
+      data.append('file', fileInput.files[0]);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: data,
+        });
+        if (!response.ok) {
+          throw new Error('Upload failed');
+        }
+        const result = await response.json();
+        beginJobMonitoring(result, 'upload');
+      } catch (error) {
+        console.error(error);
+        setStatus('Error', 'Upload failed. Please retry.', 'danger');
+        toggleForms(false);
+      }
+    });
+
+    jsonForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!jsonInput.files.length) {
+        setStatus('Error', 'Please choose a Marker JSON file.', 'danger');
+        return;
+      }
+
+      resetPreview();
+      toggleForms(true);
+      currentMode = 'json';
+      setStatus('Uploading', 'Uploading JSON for rendering...', 'pending');
+
+      const data = new FormData();
+      data.append('file', jsonInput.files[0]);
+
+      try {
+        const response = await fetch('/api/import-json', {
+          method: 'POST',
+          body: data,
+        });
+        if (!response.ok) {
+          throw new Error('JSON upload failed');
+        }
+        const result = await response.json();
+        beginJobMonitoring(result, 'json');
+      } catch (error) {
+        console.error(error);
+        setStatus('Error', 'Unable to import JSON. Please try again.', 'danger');
+        toggleForms(false);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,39 +1,174 @@
+import base64
+import asyncio
+import os
 import traceback
+from contextlib import asynccontextmanager
+from concurrent.futures import ThreadPoolExecutor
+from enum import Enum
+from pathlib import Path
+from threading import Lock
+from typing import Optional, Annotated, Dict, List
+from uuid import uuid4
+import io
 
 import click
-import os
-
+from fastapi import FastAPI, Form, File, UploadFile, HTTPException
 from pydantic import BaseModel, Field
 from starlette.responses import HTMLResponse
 
-from marker.config.parser import ConfigParser
-from marker.output import text_from_rendered
-
-import base64
-from contextlib import asynccontextmanager
-from typing import Optional, Annotated
-import io
-
-from fastapi import FastAPI, Form, File, UploadFile
 from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict
 from marker.settings import settings
+from marker.config.parser import ConfigParser
+from marker.output import text_from_rendered, save_output
+from marker.scripts.render_from_json import render_json_document
 
 app_data = {}
 
 
 UPLOAD_DIRECTORY = "./uploads"
 os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)
+JOB_DIRECTORY = "./job_outputs"
+os.makedirs(JOB_DIRECTORY, exist_ok=True)
+
+
+class JobStatus(str, Enum):
+    queued = "queued"
+    processing = "processing"
+    completed = "completed"
+    failed = "failed"
+
+
+class JobResult(BaseModel):
+    json_path: Optional[str] = None
+    html_path: Optional[str] = None
+    metadata_path: Optional[str] = None
+    assets: List[str] = Field(default_factory=list)
+
+
+class JobResponse(BaseModel):
+    job_id: str
+    filename: str
+    status: str
+    error: Optional[str] = None
+    result: Optional[JobResult] = None
+    output_dir: Optional[str] = None
+
+
+def _job_lock() -> Lock:
+    return app_data["job_lock"]
+
+
+def _job_store() -> Dict[str, Dict]:
+    return app_data["jobs"]
+
+
+def _executor() -> ThreadPoolExecutor:
+    return app_data["executor"]
+
+
+def _update_job(job_id: str, **updates):
+    with _job_lock():
+        _job_store()[job_id].update(updates)
+
+
+def _get_job(job_id: str) -> Dict:
+    with _job_lock():
+        return _job_store().get(job_id)
+
+
+def _process_job(job_id: str):
+    job = _get_job(job_id)
+    if not job:
+        return
+
+    _update_job(job_id, status=JobStatus.processing)
+    input_path = job["input_path"]
+    output_dir = job["output_dir"]
+
+    try:
+        options = {
+            "output_format": "json",
+            "output_dir": output_dir,
+            "layout_batch_size": 1,
+            "detection_batch_size": 1,
+            "table_rec_batch_size": 1,
+            "ocr_error_batch_size": 1,
+            "recognition_batch_size": 4,
+            "equation_batch_size": 1,
+        }
+        config_parser = ConfigParser(options)
+        config_dict = config_parser.generate_config_dict()
+        config_dict["disable_tqdm"] = True
+        converter_cls = config_parser.get_converter_cls()
+        converter = converter_cls(
+            config=config_dict,
+            artifact_dict=app_data["models"],
+            processor_list=config_parser.get_processors(),
+            renderer=config_parser.get_renderer(),
+            llm_service=config_parser.get_llm_service(),
+        )
+        rendered = converter(input_path)
+        base_name = config_parser.get_base_filename(input_path)
+        save_output(rendered, output_dir, base_name)
+
+        json_path = os.path.join(output_dir, f"{base_name}.json")
+        html_path = None
+        if os.path.exists(json_path):
+            html_path = str(render_json_document(Path(json_path)))
+
+        metadata_path = os.path.join(output_dir, f"{base_name}_meta.json")
+        assets = []
+        for asset_name in sorted(os.listdir(output_dir)):
+            if asset_name.endswith((".jpeg", ".jpg", ".png")):
+                full_asset_path = os.path.join(output_dir, asset_name)
+                assets.append(os.path.relpath(full_asset_path, start=output_dir))
+
+        json_rel = (
+            os.path.relpath(json_path, start=output_dir)
+            if os.path.exists(json_path)
+            else None
+        )
+        html_rel = (
+            os.path.relpath(html_path, start=output_dir)
+            if html_path and os.path.exists(html_path)
+            else None
+        )
+        metadata_rel = (
+            os.path.relpath(metadata_path, start=output_dir)
+            if os.path.exists(metadata_path)
+            else None
+        )
+
+        _update_job(
+            job_id,
+            status=JobStatus.completed,
+            result=JobResult(
+                json_path=json_rel,
+                html_path=html_rel,
+                metadata_path=metadata_rel,
+                assets=assets,
+            ),
+        )
+    except Exception as exc:
+        traceback.print_exc()
+        _update_job(job_id, status=JobStatus.failed, error=str(exc))
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app_data["models"] = create_model_dict()
+    app_data["jobs"] = {}
+    app_data["job_lock"] = Lock()
+    worker_count = int(os.getenv("MARKER_SERVER_WORKERS", "1"))
+    app_data["executor"] = ThreadPoolExecutor(max_workers=max(1, worker_count))
 
     yield
 
     if "models" in app_data:
         del app_data["models"]
+    if "executor" in app_data:
+        app_data["executor"].shutdown(wait=True)
 
 
 app = FastAPI(lifespan=lifespan)
@@ -157,6 +292,115 @@ async def convert_pdf_upload(
     results = await _convert_pdf(params)
     os.remove(upload_path)
     return results
+
+
+async def _run_job(job_id: str):
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(_executor(), lambda: _process_job(job_id))
+
+
+@app.post("/jobs", response_model=JobResponse)
+async def create_job(file: UploadFile = File(...)):
+    job_id = uuid4().hex
+    job_dir = os.path.join(JOB_DIRECTORY, job_id)
+    os.makedirs(job_dir, exist_ok=True)
+
+    input_path = os.path.join(job_dir, file.filename)
+    file_contents = await file.read()
+    with open(input_path, "wb") as f:
+        f.write(file_contents)
+
+    job_record = {
+        "job_id": job_id,
+        "filename": file.filename,
+        "status": JobStatus.queued,
+        "error": None,
+        "result": None,
+        "input_path": input_path,
+        "output_dir": job_dir,
+    }
+
+    with _job_lock():
+        _job_store()[job_id] = job_record
+
+    asyncio.create_task(_run_job(job_id))
+
+    return JobResponse(
+        job_id=job_id,
+        filename=file.filename,
+        status=JobStatus.queued,
+        output_dir=job_dir,
+    )
+
+
+@app.get("/jobs/{job_id}", response_model=JobResponse)
+async def get_job(job_id: str):
+    job = _get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    return JobResponse(
+        job_id=job["job_id"],
+        filename=job["filename"],
+        status=job["status"],
+        error=job.get("error"),
+        result=job.get("result"),
+        output_dir=job.get("output_dir"),
+    )
+
+
+@app.post("/jobs/import-json", response_model=JobResponse)
+async def import_json(file: UploadFile = File(...)):
+    filename = file.filename or "document.json"
+    if not filename.lower().endswith(".json"):
+        raise HTTPException(status_code=400, detail="Only .json files are supported.")
+
+    job_id = uuid4().hex
+    job_dir = os.path.join(JOB_DIRECTORY, job_id)
+    os.makedirs(job_dir, exist_ok=True)
+
+    dest_path = os.path.join(job_dir, filename)
+    contents = await file.read()
+    with open(dest_path, "wb") as f:
+        f.write(contents)
+
+    html_path = None
+    try:
+        html_path = render_json_document(Path(dest_path))
+    except Exception as exc:
+        traceback.print_exc()
+        raise HTTPException(status_code=400, detail=f"Failed to render JSON: {exc}")
+
+    json_rel = os.path.relpath(dest_path, start=job_dir)
+    html_rel = (
+        os.path.relpath(html_path, start=job_dir) if html_path and html_path.exists() else None
+    )
+
+    job_record = {
+        "job_id": job_id,
+        "filename": filename,
+        "status": JobStatus.completed,
+        "error": None,
+        "result": JobResult(
+            json_path=json_rel,
+            html_path=html_rel,
+            metadata_path=None,
+            assets=[],
+        ),
+        "input_path": dest_path,
+        "output_dir": job_dir,
+    }
+
+    with _job_lock():
+        _job_store()[job_id] = job_record
+
+    return JobResponse(
+        job_id=job_id,
+        filename=filename,
+        status=JobStatus.completed,
+        result=job_record["result"],
+        output_dir=job_dir,
+    )
 
 
 @click.command()

@@ -126,6 +126,20 @@ def _wrap_html(body: str) -> str:
     )
 
 
+def render_json_document(
+    json_path: Path, output_path: Path | None = None
+) -> Path:
+    """Render a Marker JSON export to an HTML file."""
+    blocks = _load_blocks(json_path)
+    html_body = _render_html(blocks)
+    full_html = _wrap_html(html_body)
+
+    target_path = output_path or json_path.with_suffix(".rerendered.html")
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_text(full_html, encoding=settings.OUTPUT_ENCODING)
+    return target_path
+
+
 @click.command()
 @click.argument("json_path", type=click.Path(exists=True, dir_okay=False, path_type=Path))
 @click.option(
@@ -136,13 +150,7 @@ def _wrap_html(body: str) -> str:
 )
 def render_from_json_cli(json_path: Path, output_path: Path | None):
     """Read a Marker JSON export and render an HTML document."""
-    blocks = _load_blocks(json_path)
-    html_body = _render_html(blocks)
-    full_html = _wrap_html(html_body)
-
-    target_path = output_path or json_path.with_suffix(".rerendered.html")
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    target_path.write_text(full_html, encoding=settings.OUTPUT_ENCODING)
+    target_path = render_json_document(json_path, output_path)
     click.echo(f"Rendered HTML written to {target_path}")
 
 
