@@ -48,20 +48,23 @@ class MarkerVisualizer:
         """
         blocks = []
         
+        # Check if this node has children
+        has_children = node.get('children') and len(node['children']) > 0
+        
         # Recursively collect from children
-        if node.get('children'):
+        if has_children:
             for child in node['children']:
                 blocks.extend(self.collect_blocks(child, page_id))
-        
-        # Include this node if it has bbox and html (leaf node with content)
-        if node.get('bbox') and node.get('html'):
-            blocks.append({
-                'bbox': node['bbox'],
-                'html': node['html'],
-                'block_type': node.get('block_type', 'Unknown'),
-                'id': node.get('id', ''),
-                'page_id': page_id
-            })
+        else:
+            # Leaf node - include if it has bbox and html
+            if node.get('bbox') and node.get('html'):
+                blocks.append({
+                    'bbox': node['bbox'],
+                    'html': node['html'],
+                    'block_type': node.get('block_type', 'Unknown'),
+                    'id': node.get('id', ''),
+                    'page_id': page_id
+                })
         
         return blocks
     
