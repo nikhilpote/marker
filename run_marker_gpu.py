@@ -46,7 +46,7 @@ def main():
         
         # Parse config with default options and reduced batch sizes for limited GPU memory
         config_parser = ConfigParser({
-            "output_format": "markdown",
+            "output_format": "json",  # JSON needed for coordinates and full reconstruction
             "output_dir": "./output",
             "layout_batch_size": 1,
             "detection_batch_size": 1,
