@@ -129,8 +129,9 @@ class MarkerVisualizer:
             position: absolute;
             border: 1px solid rgba(0,123,255,0.3);
             background: rgba(0,123,255,0.05);
-            padding: 2px;
-            margin: 1px;
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
         }
         .block-label {
             position: absolute;
@@ -148,7 +149,7 @@ class MarkerVisualizer:
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 11px;
-            padding: 1px;
+            padding: 0px;
         }
     </style>
 </head>
