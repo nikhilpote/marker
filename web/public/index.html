@@ -163,6 +163,10 @@
       font-size: 0.85rem;
       font-weight: 600;
     }
+    .tag-toolbar-actions button.secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
     .tag-toolbar-actions button#tag-reset {
       background: #e2e8f0;
       color: #334155;
@@ -174,6 +178,138 @@
     .tag-status {
       font-size: 0.8rem;
       color: #1d4ed8;
+    }
+    body.modal-open {
+      overflow: hidden;
+    }
+    .draft-editor {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .draft-editor.hidden {
+      display: none;
+    }
+    .draft-editor-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(2px);
+    }
+    .draft-editor-dialog {
+      position: relative;
+      width: min(960px, 92vw);
+      max-height: 90vh;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+    .draft-editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid #e2e8f0;
+      background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(99,102,241,0.08));
+    }
+    .draft-editor-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #1e293b;
+    }
+    .draft-editor-header button {
+      background: transparent;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #475569;
+    }
+    .draft-editor-header button:hover {
+      color: #1e293b;
+    }
+    .draft-editor-body {
+      padding: 1.2rem 1.4rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .draft-editor-footer {
+      padding: 1rem 1.4rem;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+    .draft-editor-footer button {
+      padding: 0.55rem 1.2rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .draft-editor-footer button#draft-editor-cancel {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .draft-editor-footer button#draft-editor-apply {
+      background: #4f46e5;
+      color: white;
+    }
+    .editor-section {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .editor-section h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #1e293b;
+    }
+    .editor-field-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .editor-field-wrapper label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+    }
+    .editor-field {
+      min-height: 96px;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 0.75rem;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .editor-field:focus {
+      outline: 2px solid rgba(99, 102, 241, 0.4);
+      outline-offset: 2px;
+    }
+    .editor-empty {
+      font-size: 0.85rem;
+      color: #64748b;
     }
     .question-preview {
       border: 1px solid #cbd5f5;
@@ -276,6 +412,7 @@
           <span>Solutions: <strong id="count-solution">0</strong></span>
         </div>
         <div class="tag-toolbar-actions">
+          <button type="button" id="tag-edit-draft" class="secondary" disabled>Edit Draft</button>
           <button type="button" id="tag-save" disabled>Save Question</button>
           <button type="button" id="tag-reset">Reset Draft</button>
           <span id="tag-status" class="tag-status"></span>
@@ -290,6 +427,21 @@
     </section>
 
   </main>
+
+  <div id="draft-editor" class="draft-editor hidden" role="dialog" aria-modal="true" aria-labelledby="draft-editor-title">
+    <div id="draft-editor-backdrop" class="draft-editor-backdrop"></div>
+    <div class="draft-editor-dialog" id="draft-editor-dialog">
+      <header class="draft-editor-header">
+        <h3 id="draft-editor-title">Edit Draft Content</h3>
+        <button type="button" id="draft-editor-close" aria-label="Close editor">&times;</button>
+      </header>
+      <div class="draft-editor-body" id="draft-editor-content"></div>
+      <footer class="draft-editor-footer">
+        <button type="button" id="draft-editor-cancel">Cancel</button>
+        <button type="button" id="draft-editor-apply">Apply Changes</button>
+      </footer>
+    </div>
+  </div>
 
   <script>
     const uploadForm = document.getElementById('upload-form');
@@ -314,6 +466,13 @@
     const tagStatusLabel = document.getElementById('tag-status');
     const savedQuestionsContainer = document.getElementById('saved-questions');
     const questionPreview = document.getElementById('question-preview');
+    const tagEditDraftButton = document.getElementById('tag-edit-draft');
+    const draftEditor = document.getElementById('draft-editor');
+    const draftEditorBackdrop = document.getElementById('draft-editor-backdrop');
+    const draftEditorContent = document.getElementById('draft-editor-content');
+    const draftEditorClose = document.getElementById('draft-editor-close');
+    const draftEditorCancel = document.getElementById('draft-editor-cancel');
+    const draftEditorApply = document.getElementById('draft-editor-apply');
 
     let pollingInterval = null;
     let currentMode = 'upload';
@@ -383,6 +542,54 @@
       return doc ? doc.querySelector(`.highlight-block[data-block-id="${blockId}"]`) : null;
     };
 
+    const disableEditing = (element, toggleButton = null) => {
+      if (!element || element.dataset.editing !== 'true') return;
+      element.contentEditable = 'false';
+      element.removeAttribute('data-editing');
+      element.classList.remove('highlight-editing');
+      if (element.dataset.addedTabindex === 'true') {
+        element.removeAttribute('tabindex');
+        delete element.dataset.addedTabindex;
+      }
+      if (toggleButton) {
+        toggleButton.textContent = 'Edit';
+        toggleButton.dataset.mode = 'edit';
+      }
+    };
+
+    const enableEditing = (element, toggleButton = null) => {
+      if (!element) return;
+      element.dataset.editing = 'true';
+      element.contentEditable = 'true';
+      element.classList.add('highlight-editing');
+      if (!element.hasAttribute('tabindex')) {
+        element.setAttribute('tabindex', '-1');
+        element.dataset.addedTabindex = 'true';
+      }
+      element.focus({ preventScroll: true });
+      const selection = element.ownerDocument.getSelection?.();
+      if (selection && selection.removeAllRanges) {
+        selection.removeAllRanges();
+        const range = element.ownerDocument.createRange();
+        range.selectNodeContents(element);
+        range.collapse(false);
+        selection.addRange(range);
+      }
+      if (toggleButton) {
+        toggleButton.textContent = 'Done';
+        toggleButton.dataset.mode = 'done';
+      }
+    };
+
+    const toggleEditing = (element, toggleButton) => {
+      if (!element) return;
+      if (element.dataset.editing === 'true') {
+        disableEditing(element, toggleButton);
+      } else {
+        enableEditing(element, toggleButton);
+      }
+    };
+
     const setBlocksSavedState = (question, saved = true) => {
       if (!question) return;
       const allIds = new Set([
@@ -424,7 +631,12 @@
 
     const removeTagControls = (doc = htmlPreview.contentDocument) => {
       if (!doc) return;
+      doc.querySelectorAll('.highlight-block[data-editing="true"]').forEach((node) => {
+        const editToggle = node.querySelector('.tag-edit-button');
+        disableEditing(node, editToggle || null);
+      });
       doc.querySelectorAll('.tag-controls').forEach((node) => node.remove());
+      doc.querySelectorAll('.tag-edit-button').forEach((node) => node.remove());
     };
 
     const renderActiveQuestion = () => {
@@ -434,6 +646,7 @@
         countOptionEl.textContent = 0;
         countSolutionEl.textContent = 0;
         tagSaveButton.disabled = true;
+      if (tagEditDraftButton) tagEditDraftButton.disabled = true;
         tagStatusLabel.textContent = 'Tag a question block to start.';
         return;
       }
@@ -446,6 +659,11 @@
 
       const ready = question.questionBlocks.size > 0 && question.optionBlocks.size > 0;
       tagSaveButton.disabled = !ready;
+      if (tagEditDraftButton) {
+        const hasContent =
+          question.questionBlocks.size + question.optionBlocks.size + question.solutionBlocks.size > 0;
+        tagEditDraftButton.disabled = !hasContent;
+      }
       tagStatusLabel.textContent = ready
         ? (question.saved ? 'Question saved.' : 'Ready to save.')
         : 'Add at least one option before saving.';
@@ -497,6 +715,11 @@
       const previousTag = element.getAttribute('data-tag') || null;
       const previousQuestionId = blockQuestionMap.get(blockId) || null;
       let question = previousQuestionId ? questionStore.get(previousQuestionId) : null;
+
+      if (element.dataset.editing === 'true') {
+        const editToggle = element.querySelector('.tag-edit-button');
+        disableEditing(element, editToggle || null);
+      }
 
       if (previousTag && question) {
         question[`${previousTag}Blocks`].delete(blockId);
@@ -568,8 +791,30 @@
       const doc = htmlPreview.contentDocument;
       if (!doc) return;
       removeTagControls(doc);
+
+      const existingEditButton = element.querySelector('.tag-edit-button');
+      if (existingEditButton) {
+        existingEditButton.remove();
+      }
+
+      const editButton = doc.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'tag-edit-button';
+      editButton.textContent = element.dataset.editing === 'true' ? 'Done' : 'Edit';
+      editButton.title = element.dataset.editing === 'true' ? 'Finish Editing' : 'Edit block content';
+      editButton.dataset.role = 'edit-toggle';
+      editButton.dataset.mode = element.dataset.editing === 'true' ? 'done' : 'edit';
+      editButton.setAttribute('contenteditable', 'false');
+      editButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleEditing(element, editButton);
+      });
+      element.appendChild(editButton);
+
       const controls = doc.createElement('div');
       controls.className = 'tag-controls';
+      controls.contentEditable = 'false';
+
       const buttons = [
         { label: 'Q', title: 'Mark as Question', tag: 'question' },
         { label: 'Opt', title: 'Mark as Option', tag: 'option' },
@@ -581,6 +826,7 @@
         btn.type = 'button';
         btn.textContent = label;
         btn.title = title;
+        btn.setAttribute('contenteditable', 'false');
         btn.addEventListener('click', (event) => {
           event.stopPropagation();
           handleTagSelection(element, tag);
@@ -588,6 +834,133 @@
         controls.appendChild(btn);
       });
       element.appendChild(controls);
+    };
+
+    const closeDraftEditor = () => {
+      if (!draftEditor || !draftEditorContent) return;
+      draftEditor.classList.add('hidden');
+      draftEditorContent.innerHTML = '';
+      document.body.classList.remove('modal-open');
+    };
+
+    const getOrderedBlockIds = (ids) => {
+      const doc = htmlPreview.contentDocument;
+      if (!doc) return [...ids];
+      return [...ids].sort((a, b) => {
+        const elA = getBlockElement(a);
+        const elB = getBlockElement(b);
+        if (!elA || !elB) return 0;
+        if (elA === elB) return 0;
+        const pos = elA.compareDocumentPosition(elB);
+        if (pos & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+        if (pos & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+        return 0;
+      });
+    };
+
+    const buildEditorSection = (title, ids, emptyMessage, labelBase = title) => {
+      const section = document.createElement('section');
+      section.className = 'editor-section';
+      const heading = document.createElement('h4');
+      heading.textContent = title;
+      section.appendChild(heading);
+
+      if (!ids.length) {
+        const empty = document.createElement('p');
+        empty.className = 'editor-empty';
+        empty.textContent = emptyMessage;
+        section.appendChild(empty);
+        return section;
+      }
+
+      ids.forEach((blockId, index) => {
+        const element = getBlockElement(blockId);
+        if (!element) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'editor-field-wrapper';
+        const label = document.createElement('label');
+        const labelSuffix = ids.length > 1 ? ` ${index + 1}` : '';
+        label.textContent = `${labelBase}${labelSuffix}`;
+        wrapper.appendChild(label);
+
+        const field = document.createElement('div');
+        field.className = 'editor-field';
+        field.contentEditable = 'true';
+        field.dataset.blockId = blockId;
+        field.innerHTML = element.innerHTML;
+        wrapper.appendChild(field);
+        section.appendChild(wrapper);
+      });
+
+      return section;
+    };
+
+    const openDraftEditor = () => {
+      if (!activeQuestionId || !questionStore.has(activeQuestionId)) {
+        tagStatusLabel.textContent = 'Select a question block to start.';
+        return;
+      }
+      const question = questionStore.get(activeQuestionId);
+      if (!question) return;
+      removeTagControls();
+
+      const orderedQuestions = getOrderedBlockIds(question.questionBlocks);
+      const orderedOptions = getOrderedBlockIds(question.optionBlocks);
+      const orderedSolutions = getOrderedBlockIds(question.solutionBlocks);
+
+      if (!draftEditorContent || !draftEditor) return;
+
+      draftEditorContent.innerHTML = '';
+      draftEditorContent.appendChild(
+        buildEditorSection('Question', orderedQuestions, 'No question parts tagged yet.', 'Question part')
+      );
+      draftEditorContent.appendChild(
+        buildEditorSection('Options', orderedOptions, 'No options tagged yet.', 'Option')
+      );
+      draftEditorContent.appendChild(
+        buildEditorSection('Solution', orderedSolutions, 'No solution content tagged yet.', 'Solution item')
+      );
+
+      draftEditor.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    };
+
+    const applyDraftEditorChanges = () => {
+      if (!activeQuestionId || !questionStore.has(activeQuestionId)) {
+        closeDraftEditor();
+        return;
+      }
+
+      if (!draftEditorContent) {
+        closeDraftEditor();
+        return;
+      }
+
+      const question = questionStore.get(activeQuestionId);
+      const fields = draftEditorContent.querySelectorAll('.editor-field');
+      if (!fields.length) {
+        closeDraftEditor();
+        return;
+      }
+
+      fields.forEach((field) => {
+        const blockId = field.dataset.blockId;
+        if (!blockId) return;
+        const element = getBlockElement(blockId);
+        if (!element) return;
+        element.innerHTML = field.innerHTML;
+      });
+
+      if (question.saved) {
+        question.saved = false;
+        setBlocksSavedState(question, false);
+      }
+
+      closeDraftEditor();
+      renderActiveQuestion();
+      renderSavedQuestions();
+      hideQuestionPreview();
+      tagStatusLabel.textContent = 'Draft updated. Review and save.';
     };
 
     const handleHighlightClick = (element) => {
@@ -649,6 +1022,7 @@
         .highlight-block {
           cursor: pointer;
           position: relative;
+          overflow: visible;
           transition: box-shadow 0.2s ease, transform 0.2s ease;
         }
         .highlight-block:hover {
@@ -659,7 +1033,7 @@
           content: attr(data-tag);
           position: absolute;
           top: 8px;
-          right: 8px;
+          right: 12px;
           font-size: 0.65rem;
           font-weight: 700;
           text-transform: uppercase;
@@ -701,6 +1075,41 @@
         .highlight-block[data-saved="true"]::after {
           opacity: 0.85;
         }
+        .highlight-block.highlight-editing {
+          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.55), 0 0 0 6px rgba(79, 70, 229, 0.18);
+          background: rgba(224, 231, 255, 0.35);
+        }
+        .highlight-block[data-editing="true"]::after {
+          opacity: 0.6;
+        }
+        .highlight-block[data-editing="true"] .tag-controls {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(16px);
+        }
+        .tag-edit-button {
+          position: absolute;
+          top: 6px;
+          left: 0;
+          transform: translateX(-110%);
+          background: rgba(79, 70, 229, 0.9);
+          color: #f8fafc;
+          border: none;
+          border-radius: 999px;
+          padding: 0.18rem 0.6rem;
+          font-size: 0.68rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+        }
+        .tag-edit-button:hover {
+          background: rgba(67, 56, 202, 1);
+        }
+        .tag-edit-button:focus {
+          outline: 2px solid rgba(129, 140, 248, 0.7);
+          outline-offset: 2px;
+        }
         .tag-controls {
           position: absolute;
           left: 12px;
@@ -735,6 +1144,7 @@
       if (!doc || !doc.body) return;
 
       ensureIframeSelectionStyles(doc);
+      closeDraftEditor();
       questionStore.clear();
       blockQuestionMap.clear();
       activeQuestionId = null;
@@ -749,6 +1159,10 @@
         doc.addEventListener('click', (event) => {
           const block = event.target.closest('.highlight-block');
           if (block) {
+            const editButtonClicked = event.target.closest('.tag-edit-button');
+            if (block.dataset.editing === 'true' && !editButtonClicked) {
+              return;
+            }
             event.preventDefault();
             event.stopPropagation();
             handleHighlightClick(block);
@@ -798,6 +1212,7 @@
       renderActiveQuestion();
       renderSavedQuestions();
       hideQuestionPreview();
+      closeDraftEditor();
     };
 
     const toggleForms = (disabled) => {
@@ -993,6 +1408,27 @@
         console.error(error);
         setStatus('Error', 'Unable to import JSON. Please try again.', 'danger');
         toggleForms(false);
+      }
+    });
+
+    if (tagEditDraftButton) {
+      tagEditDraftButton.addEventListener('click', openDraftEditor);
+    }
+    if (draftEditorApply) {
+      draftEditorApply.addEventListener('click', applyDraftEditorChanges);
+    }
+    if (draftEditorCancel) {
+      draftEditorCancel.addEventListener('click', closeDraftEditor);
+    }
+    if (draftEditorClose) {
+      draftEditorClose.addEventListener('click', closeDraftEditor);
+    }
+    if (draftEditorBackdrop) {
+      draftEditorBackdrop.addEventListener('click', closeDraftEditor);
+    }
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && draftEditor && !draftEditor.classList.contains('hidden')) {
+        closeDraftEditor();
       }
     });
   </script>
