@@ -1,0 +1,3227 @@
+{
+  "children": [
+    {
+      "id": "/page/0/Page/147",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/0/PageHeader/0'></content-ref><content-ref src='/page/0/PageHeader/1'></content-ref><content-ref src='/page/0/Text/2'></content-ref><content-ref src='/page/0/SectionHeader/3'></content-ref><content-ref src='/page/0/Text/4'></content-ref><content-ref src='/page/0/SectionHeader/5'></content-ref><content-ref src='/page/0/SectionHeader/6'></content-ref><content-ref src='/page/0/ListGroup/111'></content-ref><content-ref src='/page/0/Form/20'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          581.0,
+          0.0
+        ],
+        [
+          581.0,
+          817.0
+        ],
+        [
+          0.0,
+          817.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        581.0,
+        817.0
+      ],
+      "children": [
+        {
+          "id": "/page/0/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              270.07421875,
+              28.72265625
+            ],
+            [
+              320.00390625,
+              28.72265625
+            ],
+            [
+              320.00390625,
+              46.275390625
+            ],
+            [
+              270.07421875,
+              46.275390625
+            ]
+          ],
+          "bbox": [
+            270.07421875,
+            28.72265625,
+            320.00390625,
+            46.275390625
+          ],
+          "children": null,
+          "section_hierarchy": {},
+          "images": {}
+        },
+        {
+          "id": "/page/0/PageHeader/1",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              396.88427734375,
+              29.12158203125
+            ],
+            [
+              427.31612903225806,
+              29.12158203125
+            ],
+            [
+              427.31612903225806,
+              39.76216712580349
+            ],
+            [
+              396.88427734375,
+              39.76216712580349
+            ]
+          ],
+          "bbox": [
+            396.88427734375,
+            29.12158203125,
+            427.31612903225806,
+            39.76216712580349
+          ],
+          "children": null,
+          "section_hierarchy": {},
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">This booklet contains 24 printed pages.</p>",
+          "polygon": [
+            [
+              49.9296875,
+              42.2861328125
+            ],
+            [
+              248.1432258064516,
+              42.2861328125
+            ],
+            [
+              248.1432258064516,
+              55.0517578125
+            ],
+            [
+              49.9296875,
+              55.0517578125
+            ]
+          ],
+          "bbox": [
+            49.9296875,
+            42.2861328125,
+            248.1432258064516,
+            55.0517578125
+          ],
+          "children": null,
+          "section_hierarchy": {},
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/3",
+          "block_type": "SectionHeader",
+          "html": "<h3>PAPER - 1: PHYSICS, MATHEMATICS &amp; CHEMISTRY</h3>",
+          "polygon": [
+            [
+              54.726451612903226,
+              65.02490234375
+            ],
+            [
+              373.33935483870965,
+              65.02490234375
+            ],
+            [
+              373.33935483870965,
+              77.27364554637282
+            ],
+            [
+              54.726451612903226,
+              77.27364554637282
+            ]
+          ],
+          "bbox": [
+            54.726451612903226,
+            65.02490234375,
+            373.33935483870965,
+            77.27364554637282
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "3": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Do not open this Test Booklet until you are asked to do so. Read carefully the Instructions on the Back Cover of this Test Booklet.</p>",
+          "polygon": [
+            [
+              49.9296875,
+              84.572265625
+            ],
+            [
+              421.31870967741935,
+              84.572265625
+            ],
+            [
+              421.31870967741935,
+              113.294921875
+            ],
+            [
+              49.9296875,
+              113.294921875
+            ]
+          ],
+          "bbox": [
+            49.9296875,
+            84.572265625,
+            421.31870967741935,
+            113.294921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "3": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/5",
+          "block_type": "SectionHeader",
+          "html": "<h1>B Booklet Code</h1>",
+          "polygon": [
+            [
+              450.556129032258,
+              71.27180899908173
+            ],
+            [
+              534.52,
+              71.27180899908173
+            ],
+            [
+              534.52,
+              125.66162109374999
+            ],
+            [
+              450.556129032258,
+              125.66162109374999
+            ]
+          ],
+          "bbox": [
+            450.556129032258,
+            71.27180899908173,
+            534.52,
+            125.66162109374999
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/6",
+          "block_type": "SectionHeader",
+          "html": "<h2>Important Instructions:</h2>",
+          "polygon": [
+            [
+              56.975483870967736,
+              122.07128906249999
+            ],
+            [
+              198.66451612903225,
+              122.07128906249999
+            ],
+            [
+              198.66451612903225,
+              134.8369140625
+            ],
+            [
+              56.975483870967736,
+              134.8369140625
+            ]
+          ],
+          "bbox": [
+            56.975483870967736,
+            122.07128906249999,
+            198.66451612903225,
+            134.8369140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/5",
+            "2": "/page/0/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/ListGroup/111",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/0/ListItem/7'></content-ref><content-ref src='/page/0/ListItem/8'></content-ref><content-ref src='/page/0/ListItem/9'></content-ref><content-ref src='/page/0/ListItem/10'></content-ref><content-ref src='/page/0/ListItem/11'></content-ref><content-ref src='/page/0/ListItem/12'></content-ref><content-ref src='/page/0/ListItem/13'></content-ref><content-ref src='/page/0/ListItem/14'></content-ref><content-ref src='/page/0/ListItem/15'></content-ref><content-ref src='/page/0/ListItem/16'></content-ref><content-ref src='/page/0/ListItem/17'></content-ref><content-ref src='/page/0/ListItem/18'></content-ref><content-ref src='/page/0/ListItem/19'></content-ref></ul></p>",
+          "polygon": [
+            [
+              56.73828125,
+              142.017578125
+            ],
+            [
+              534.52,
+              141.04315886134066
+            ],
+            [
+              534.52,
+              570.1744719926538
+            ],
+            [
+              56.73828125,
+              570.1744719926538
+            ]
+          ],
+          "bbox": [
+            56.73828125,
+            141.04315886134066,
+            534.52,
+            570.1744719926538
+          ],
+          "children": [
+            {
+              "id": "/page/0/ListItem/7",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">1. Immediately fill in the particulars on this page of the Test Booklet with <i>only Black Ball Point Pen</i> provided in the examination hall.</li>",
+              "polygon": [
+                [
+                  56.73828125,
+                  142.017578125
+                ],
+                [
+                  533.0206451612903,
+                  141.04315886134066
+                ],
+                [
+                  533.0206451612903,
+                  167.548828125
+                ],
+                [
+                  56.73828125,
+                  167.548828125
+                ]
+              ],
+              "bbox": [
+                56.73828125,
+                141.04315886134066,
+                533.0206451612903,
+                167.548828125
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/8",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">2. The Answer Sheet is kept inside this Test Booklet. When you are directed to open the Test Booklet, take out the Answer Sheet and fill in the particulars carefully.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  167.14990234375
+                ],
+                [
+                  533.0206451612903,
+                  167.14990234375
+                ],
+                [
+                  533.0206451612903,
+                  191.88330078125
+                ],
+                [
+                  59.0078125,
+                  192.80899908172634
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                167.14990234375,
+                533.0206451612903,
+                192.80899908172634
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/9",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">The test is of 3 hours duration.</li>",
+              "polygon": [
+                [
+                  58.4404296875,
+                  195.0596877869605
+                ],
+                [
+                  230.15096774193546,
+                  195.0596877869605
+                ],
+                [
+                  230.15096774193546,
+                  205.44677734375
+                ],
+                [
+                  58.4404296875,
+                  205.44677734375
+                ]
+              ],
+              "bbox": [
+                58.4404296875,
+                195.0596877869605,
+                230.15096774193546,
+                205.44677734375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/10",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">4. The Test Booklet consists of 90 questions. The maximum marks are 360.</li>",
+              "polygon": [
+                [
+                  56.73828125,
+                  207.81359044995406
+                ],
+                [
+                  423.56774193548387,
+                  207.81359044995406
+                ],
+                [
+                  423.56774193548387,
+                  219.80810546875
+                ],
+                [
+                  56.73828125,
+                  219.80810546875
+                ]
+              ],
+              "bbox": [
+                56.73828125,
+                207.81359044995406,
+                423.56774193548387,
+                219.80810546875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/11",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">5. There are <i>three</i> parts in the question paper A, B, C consisting of Physics, Mathematics and Chemistry having 30 questions in each part of equal weightage. Each question is allotted 4 (four) marks for correct response.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  220.60595703125
+                ],
+                [
+                  533.0206451612903,
+                  219.81726354453625
+                ],
+                [
+                  533.0206451612903,
+                  258.10498046875
+                ],
+                [
+                  59.0078125,
+                  258.10498046875
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                219.81726354453625,
+                533.0206451612903,
+                258.10498046875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/12",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">6. Candidates will be awarded marks as stated above in instruction No. 5 for correct response of each question. 44 (one-fourth) marks of the total marks allotted to the question (i.e. 1 mark) will be deducted for indicating incorrect response of each question. No deduction from the total score will be made if no response is indicated for an item in the answer sheet.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  258.82920110192833
+                ],
+                [
+                  533.0206451612903,
+                  258.82920110192833
+                ],
+                [
+                  533.0206451612903,
+                  311.162109375
+                ],
+                [
+                  59.0078125,
+                  311.162109375
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                258.82920110192833,
+                533.0206451612903,
+                311.162109375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/13",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">7. There is only one correct response for each question. Filling up more than one response in any question will be treated as wrong response and marks for wrong response will be deducted accordingly as per instruction 6 above.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  310.59504132231405
+                ],
+                [
+                  533.7703225806451,
+                  310.59504132231405
+                ],
+                [
+                  533.7703225806451,
+                  349.06005859375
+                ],
+                [
+                  59.0078125,
+                  349.06005859375
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                310.59504132231405,
+                533.7703225806451,
+                349.06005859375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/14",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">8. For writing particulars/marking responses on Side-1 and Side-2 of the Answer Sheet use only Black Ball Point Pen provided in the examination hall.</li>",
+              "polygon": [
+                [
+                  57.873046875,
+                  348.26220703125
+                ],
+                [
+                  533.0206451612903,
+                  347.35629017447195
+                ],
+                [
+                  533.0206451612903,
+                  372.99560546875
+                ],
+                [
+                  57.873046875,
+                  372.99560546875
+                ]
+              ],
+              "bbox": [
+                57.873046875,
+                347.35629017447195,
+                533.0206451612903,
+                372.99560546875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/15",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">   No candidate is allowed to carry any textual material, printed or written, bits of papers, pager, mobile phone, any electronic device, etc. except the Admit Card inside the examination room/ hall.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  374.59130859375
+                ],
+                [
+                  533.0206451612903,
+                  372.86409550045914
+                ],
+                [
+                  533.0206451612903,
+                  410.49462890625
+                ],
+                [
+                  59.0078125,
+                  410.49462890625
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                372.86409550045914,
+                533.0206451612903,
+                410.49462890625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/16",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">10. Rough work is to be done on the space provided for this purpose in the Test Booklet only. This space is given at the bottom of each page and in four pages (Page 20-23) at the end of the booklet.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  412.88818359375
+                ],
+                [
+                  533.7703225806451,
+                  411.8760330578512
+                ],
+                [
+                  534.52,
+                  449.38751147842055
+                ],
+                [
+                  59.0078125,
+                  449.38751147842055
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                411.8760330578512,
+                534.52,
+                449.38751147842055
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/17",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">11. On completion of the test, the candidate must hand over the Answer Sheet to the Invigilator on duty in the Room/Hall. However, the candidates are allowed to take away this Test Booklet with them.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  451.18505859375
+                ],
+                [
+                  533.7703225806451,
+                  450.8879706152433
+                ],
+                [
+                  534.52,
+                  487.6492194674013
+                ],
+                [
+                  59.0078125,
+                  487.6492194674013
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                450.8879706152433,
+                534.52,
+                487.6492194674013
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/18",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">12. The CODE for this Booklet is <b>B</b>. Make sure that the CODE printed on <b>Side-2</b> of the Answer Sheet is same as that on this Booklet. Also tally the serial number of the Test Booklet and Answer Sheet are the same as that on this booklet. In case of discrepancy, the candidate should immediately report the matter to the Invigilator for replacement of both the Test Booklet and the Answer Sheet.</li>",
+              "polygon": [
+                [
+                  59.0078125,
+                  491.47656249999994
+                ],
+                [
+                  534.52,
+                  491.47656249999994
+                ],
+                [
+                  534.52,
+                  556.6703397612488
+                ],
+                [
+                  59.0078125,
+                  556.6703397612488
+                ]
+              ],
+              "bbox": [
+                59.0078125,
+                491.47656249999994,
+                534.52,
+                556.6703397612488
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/ListItem/19",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">13. Do not fold or make any stray mark on the Answer Sheet.</li>",
+              "polygon": [
+                [
+                  59.22451612903225,
+                  558.921028466483
+                ],
+                [
+                  367.34193548387094,
+                  558.921028466483
+                ],
+                [
+                  367.34193548387094,
+                  570.1744719926538
+                ],
+                [
+                  59.22451612903225,
+                  570.1744719926538
+                ]
+              ],
+              "bbox": [
+                59.22451612903225,
+                558.921028466483,
+                367.34193548387094,
+                570.1744719926538
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/5",
+            "2": "/page/0/SectionHeader/6"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/0/Form/20",
+          "block_type": "Form",
+          "html": "<table><tbody><tr><th>Name of the Can</th><th>didate (in Capita</th><th>l letters ) : _</th><th></th><th></th><th></th></tr><tr><th>Roll Number</th><th>: in figures [</th><th></th><th></th><th></th><th></th></tr><tr><td>Examination Ce</td><td>ntre Number :</td><td></td><td>_</td><td>7</td><td></td></tr><tr><td>Name of Examir</td><td>nation Centre (in G</td><td>Capital letters):</td><td></td><td></td><td><u>                                     </u></td></tr><tr><td>Candidate's Sig</td><td>nature :</td><td></td><td>1. Invigilator's Signature :</td><td></td><td></td></tr><tr><td></td><td></td><td>11</td><td>2. Invigilator's Signature :</td><td></td><td></td></tr></tbody></table>",
+          "polygon": [
+            [
+              54.46875,
+              577.24560546875
+            ],
+            [
+              544.6875,
+              577.24560546875
+            ],
+            [
+              544.6875,
+              731.23095703125
+            ],
+            [
+              54.46875,
+              731.23095703125
+            ]
+          ],
+          "bbox": [
+            54.46875,
+            577.24560546875,
+            544.6875,
+            731.23095703125
+          ],
+          "children": [
+            {
+              "id": "/page/0/TableCell/112",
+              "block_type": "TableCell",
+              "html": "<th>Name of the Can</th>",
+              "polygon": [
+                [
+                  54.46875,
+                  577.9958350371614
+                ],
+                [
+                  125.73408247256295,
+                  577.9958350371614
+                ],
+                [
+                  125.73408247256295,
+                  599.3773777368859
+                ],
+                [
+                  54.46875,
+                  599.3773777368859
+                ]
+              ],
+              "bbox": [
+                54.46875,
+                577.9958350371614,
+                125.73408247256295,
+                599.3773777368859
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/113",
+              "block_type": "TableCell",
+              "html": "<th>didate (in Capita</th>",
+              "polygon": [
+                [
+                  125.73408247256295,
+                  577.9958350371614
+                ],
+                [
+                  197.7495763395739,
+                  577.9958350371614
+                ],
+                [
+                  197.7495763395739,
+                  599.3773777368859
+                ],
+                [
+                  125.73408247256295,
+                  599.3773777368859
+                ]
+              ],
+              "bbox": [
+                125.73408247256295,
+                577.9958350371614,
+                197.7495763395739,
+                599.3773777368859
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/114",
+              "block_type": "TableCell",
+              "html": "<th>l letters ) : _</th>",
+              "polygon": [
+                [
+                  196.9994149451259,
+                  577.9958350371614
+                ],
+                [
+                  288.8941857650097,
+                  577.9958350371614
+                ],
+                [
+                  288.8941857650097,
+                  599.3773777368859
+                ],
+                [
+                  196.9994149451259,
+                  599.3773777368859
+                ]
+              ],
+              "bbox": [
+                196.9994149451259,
+                577.9958350371614,
+                288.8941857650097,
+                599.3773777368859
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/115",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  289.1115329414895,
+                  578.034115793948
+                ],
+                [
+                  433.57153753744853,
+                  578.034115793948
+                ],
+                [
+                  433.57153753744853,
+                  599.4177648511034
+                ],
+                [
+                  289.1115329414895,
+                  599.4177648511034
+                ]
+              ],
+              "bbox": [
+                289.1115329414895,
+                578.034115793948,
+                433.57153753744853,
+                599.4177648511034
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/116",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  433.7959472380429,
+                  578.034115793948
+                ],
+                [
+                  477.03221621922785,
+                  578.034115793948
+                ],
+                [
+                  477.03221621922785,
+                  599.4177648511034
+                ],
+                [
+                  433.7959472380429,
+                  599.4177648511034
+                ]
+              ],
+              "bbox": [
+                433.7959472380429,
+                578.034115793948,
+                477.03221621922785,
+                599.4177648511034
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/117",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  476.80961507424144,
+                  577.9958350371614
+                ],
+                [
+                  543.9490598773402,
+                  577.9958350371614
+                ],
+                [
+                  543.9490598773402,
+                  599.3773777368859
+                ],
+                [
+                  476.80961507424144,
+                  599.3773777368859
+                ]
+              ],
+              "bbox": [
+                476.80961507424144,
+                577.9958350371614,
+                543.9490598773402,
+                599.3773777368859
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/118",
+              "block_type": "TableCell",
+              "html": "<th>Roll Number</th>",
+              "polygon": [
+                [
+                  54.46875,
+                  599.0022629526802
+                ],
+                [
+                  125.73408247256295,
+                  599.0022629526802
+                ],
+                [
+                  125.73408247256295,
+                  645.8916109783919
+                ],
+                [
+                  54.46875,
+                  645.8916109783919
+                ]
+              ],
+              "bbox": [
+                54.46875,
+                599.0022629526802,
+                125.73408247256295,
+                645.8916109783919
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/119",
+              "block_type": "TableCell",
+              "html": "<th>: in figures [</th>",
+              "polygon": [
+                [
+                  125.73408247256295,
+                  599.0022629526802
+                ],
+                [
+                  197.7495763395739,
+                  599.0022629526802
+                ],
+                [
+                  197.7495763395739,
+                  645.8916109783919
+                ],
+                [
+                  125.73408247256295,
+                  645.8916109783919
+                ]
+              ],
+              "bbox": [
+                125.73408247256295,
+                599.0022629526802,
+                197.7495763395739,
+                645.8916109783919
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/120",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  196.9994149451259,
+                  599.0022629526802
+                ],
+                [
+                  288.8941857650097,
+                  599.0022629526802
+                ],
+                [
+                  288.8941857650097,
+                  645.8916109783919
+                ],
+                [
+                  196.9994149451259,
+                  645.8916109783919
+                ]
+              ],
+              "bbox": [
+                196.9994149451259,
+                599.0022629526802,
+                288.8941857650097,
+                645.8916109783919
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/121",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  288.8941857650097,
+                  599.0022629526802
+                ],
+                [
+                  433.30025419625565,
+                  599.0022629526802
+                ],
+                [
+                  433.30025419625565,
+                  646.6418405468032
+                ],
+                [
+                  288.8941857650097,
+                  646.6418405468032
+                ]
+              ],
+              "bbox": [
+                288.8941857650097,
+                599.0022629526802,
+                433.30025419625565,
+                646.6418405468032
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/122",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  433.7959472380429,
+                  599.1737021313992
+                ],
+                [
+                  477.03221621922785,
+                  599.1737021313992
+                ],
+                [
+                  477.03221621922785,
+                  646.2590329789371
+                ],
+                [
+                  433.7959472380429,
+                  646.2590329789371
+                ]
+              ],
+              "bbox": [
+                433.7959472380429,
+                599.1737021313992,
+                477.03221621922785,
+                646.2590329789371
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/123",
+              "block_type": "TableCell",
+              "html": "<th></th>",
+              "polygon": [
+                [
+                  477.04717686593415,
+                  599.1737021313992
+                ],
+                [
+                  544.2204805771869,
+                  599.1737021313992
+                ],
+                [
+                  544.2204805771869,
+                  646.2590329789371
+                ],
+                [
+                  477.04717686593415,
+                  646.2590329789371
+                ]
+              ],
+              "bbox": [
+                477.04717686593415,
+                599.1737021313992,
+                544.2204805771869,
+                646.2590329789371
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/124",
+              "block_type": "TableCell",
+              "html": "<td>Examination Ce</td>",
+              "polygon": [
+                [
+                  54.46875,
+                  645.1413814099805
+                ],
+                [
+                  125.73408247256295,
+                  645.1413814099805
+                ],
+                [
+                  125.73408247256295,
+                  668.7736128149392
+                ],
+                [
+                  54.46875,
+                  668.7736128149392
+                ]
+              ],
+              "bbox": [
+                54.46875,
+                645.1413814099805,
+                125.73408247256295,
+                668.7736128149392
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/125",
+              "block_type": "TableCell",
+              "html": "<td>ntre Number :</td>",
+              "polygon": [
+                [
+                  125.73408247256295,
+                  645.1413814099805
+                ],
+                [
+                  197.7495763395739,
+                  645.1413814099805
+                ],
+                [
+                  197.7495763395739,
+                  668.7736128149392
+                ],
+                [
+                  125.73408247256295,
+                  668.7736128149392
+                ]
+              ],
+              "bbox": [
+                125.73408247256295,
+                645.1413814099805,
+                197.7495763395739,
+                668.7736128149392
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/126",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  196.9994149451259,
+                  645.1413814099805
+                ],
+                [
+                  288.8941857650097,
+                  645.1413814099805
+                ],
+                [
+                  288.8941857650097,
+                  668.7736128149392
+                ],
+                [
+                  196.9994149451259,
+                  668.7736128149392
+                ]
+              ],
+              "bbox": [
+                196.9994149451259,
+                645.1413814099805,
+                288.8941857650097,
+                668.7736128149392
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/127",
+              "block_type": "TableCell",
+              "html": "<td>_</td>",
+              "polygon": [
+                [
+                  288.8941857650097,
+                  645.1413814099805
+                ],
+                [
+                  433.30025419625565,
+                  645.1413814099805
+                ],
+                [
+                  433.30025419625565,
+                  668.7736128149392
+                ],
+                [
+                  288.8941857650097,
+                  668.7736128149392
+                ]
+              ],
+              "bbox": [
+                288.8941857650097,
+                645.1413814099805,
+                433.30025419625565,
+                668.7736128149392
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/128",
+              "block_type": "TableCell",
+              "html": "<td>7</td>",
+              "polygon": [
+                [
+                  433.67533489347966,
+                  645.1413814099805
+                ],
+                [
+                  476.80961507424144,
+                  645.1413814099805
+                ],
+                [
+                  476.80961507424144,
+                  668.7736128149392
+                ],
+                [
+                  433.67533489347966,
+                  668.7736128149392
+                ]
+              ],
+              "bbox": [
+                433.67533489347966,
+                645.1413814099805,
+                476.80961507424144,
+                668.7736128149392
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/129",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  477.04717686593415,
+                  645.3954264322916
+                ],
+                [
+                  544.1007954035365,
+                  645.3954264322916
+                ],
+                [
+                  544.1007954035365,
+                  669.0507361882318
+                ],
+                [
+                  477.04717686593415,
+                  669.0507361882318
+                ]
+              ],
+              "bbox": [
+                477.04717686593415,
+                645.3954264322916,
+                544.1007954035365,
+                669.0507361882318
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/130",
+              "block_type": "TableCell",
+              "html": "<td>Name of Examir</td>",
+              "polygon": [
+                [
+                  54.46875,
+                  668.7736128149392
+                ],
+                [
+                  125.73408247256295,
+                  668.7736128149392
+                ],
+                [
+                  125.73408247256295,
+                  692.4058442198979
+                ],
+                [
+                  54.46875,
+                  692.4058442198979
+                ]
+              ],
+              "bbox": [
+                54.46875,
+                668.7736128149392,
+                125.73408247256295,
+                692.4058442198979
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/131",
+              "block_type": "TableCell",
+              "html": "<td>nation Centre (in G</td>",
+              "polygon": [
+                [
+                  125.73408247256295,
+                  668.7736128149392
+                ],
+                [
+                  197.7495763395739,
+                  668.7736128149392
+                ],
+                [
+                  197.7495763395739,
+                  692.4058442198979
+                ],
+                [
+                  125.73408247256295,
+                  692.4058442198979
+                ]
+              ],
+              "bbox": [
+                125.73408247256295,
+                668.7736128149392,
+                197.7495763395739,
+                692.4058442198979
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/132",
+              "block_type": "TableCell",
+              "html": "<td>Capital letters):</td>",
+              "polygon": [
+                [
+                  196.9994149451259,
+                  668.7736128149392
+                ],
+                [
+                  288.8941857650097,
+                  668.7736128149392
+                ],
+                [
+                  288.8941857650097,
+                  692.4058442198979
+                ],
+                [
+                  196.9994149451259,
+                  692.4058442198979
+                ]
+              ],
+              "bbox": [
+                196.9994149451259,
+                668.7736128149392,
+                288.8941857650097,
+                692.4058442198979
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/133",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  289.1115329414895,
+                  668.9568659114225
+                ],
+                [
+                  433.57153753744853,
+                  668.9568659114225
+                ],
+                [
+                  433.57153753744853,
+                  692.6497237780862
+                ],
+                [
+                  289.1115329414895,
+                  692.6497237780862
+                ]
+              ],
+              "bbox": [
+                289.1115329414895,
+                668.9568659114225,
+                433.57153753744853,
+                692.6497237780862
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/134",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  433.7959472380429,
+                  668.9568659114225
+                ],
+                [
+                  477.03221621922785,
+                  668.9568659114225
+                ],
+                [
+                  477.03221621922785,
+                  692.6497237780862
+                ],
+                [
+                  433.7959472380429,
+                  692.6497237780862
+                ]
+              ],
+              "bbox": [
+                433.7959472380429,
+                668.9568659114225,
+                477.03221621922785,
+                692.6497237780862
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/135",
+              "block_type": "TableCell",
+              "html": "<td><u> </u></td>",
+              "polygon": [
+                [
+                  476.80961507424144,
+                  668.7736128149392
+                ],
+                [
+                  544.3241405745642,
+                  668.7736128149392
+                ],
+                [
+                  544.3241405745642,
+                  692.4058442198979
+                ],
+                [
+                  476.80961507424144,
+                  692.4058442198979
+                ]
+              ],
+              "bbox": [
+                476.80961507424144,
+                668.7736128149392,
+                544.3241405745642,
+                692.4058442198979
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/136",
+              "block_type": "TableCell",
+              "html": "<td>Candidate's Sig</td>",
+              "polygon": [
+                [
+                  54.46875,
+                  692.4058442198979
+                ],
+                [
+                  125.73408247256295,
+                  692.4058442198979
+                ],
+                [
+                  125.73408247256295,
+                  715.6629608406508
+                ],
+                [
+                  54.46875,
+                  715.6629608406508
+                ]
+              ],
+              "bbox": [
+                54.46875,
+                692.4058442198979,
+                125.73408247256295,
+                715.6629608406508
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/137",
+              "block_type": "TableCell",
+              "html": "<td>nature :</td>",
+              "polygon": [
+                [
+                  125.73408247256295,
+                  692.4058442198979
+                ],
+                [
+                  197.7495763395739,
+                  692.4058442198979
+                ],
+                [
+                  197.7495763395739,
+                  715.6629608406508
+                ],
+                [
+                  125.73408247256295,
+                  715.6629608406508
+                ]
+              ],
+              "bbox": [
+                125.73408247256295,
+                692.4058442198979,
+                197.7495763395739,
+                715.6629608406508
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/138",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  196.9994149451259,
+                  692.4058442198979
+                ],
+                [
+                  288.8941857650097,
+                  692.4058442198979
+                ],
+                [
+                  288.8941857650097,
+                  715.6629608406508
+                ],
+                [
+                  196.9994149451259,
+                  715.6629608406508
+                ]
+              ],
+              "bbox": [
+                196.9994149451259,
+                692.4058442198979,
+                288.8941857650097,
+                715.6629608406508
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/139",
+              "block_type": "TableCell",
+              "html": "<td>1. Invigilator's Signature :</td>",
+              "polygon": [
+                [
+                  288.8941857650097,
+                  692.4058442198979
+                ],
+                [
+                  433.30025419625565,
+                  692.4058442198979
+                ],
+                [
+                  433.30025419625565,
+                  715.6629608406508
+                ],
+                [
+                  288.8941857650097,
+                  715.6629608406508
+                ]
+              ],
+              "bbox": [
+                288.8941857650097,
+                692.4058442198979,
+                433.30025419625565,
+                715.6629608406508
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/140",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  433.7959472380429,
+                  692.5276924182342
+                ],
+                [
+                  477.03221621922785,
+                  692.5276924182342
+                ],
+                [
+                  477.03221621922785,
+                  715.7887470115752
+                ],
+                [
+                  433.7959472380429,
+                  715.7887470115752
+                ]
+              ],
+              "bbox": [
+                433.7959472380429,
+                692.5276924182342,
+                477.03221621922785,
+                715.7887470115752
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/141",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  476.80961507424144,
+                  692.4058442198979
+                ],
+                [
+                  544.3241405745642,
+                  692.4058442198979
+                ],
+                [
+                  544.3241405745642,
+                  715.6629608406508
+                ],
+                [
+                  476.80961507424144,
+                  715.6629608406508
+                ]
+              ],
+              "bbox": [
+                476.80961507424144,
+                692.4058442198979,
+                544.3241405745642,
+                715.6629608406508
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/142",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  54.70812034730068,
+                  715.5775388887544
+                ],
+                [
+                  125.86095608242717,
+                  715.2771540029646
+                ],
+                [
+                  125.86095608242717,
+                  730.7375885934541
+                ],
+                [
+                  54.70812034730068,
+                  730.7798302180182
+                ]
+              ],
+              "bbox": [
+                54.70812034730068,
+                715.2771540029646,
+                125.86095608242717,
+                730.7798302180182
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/143",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  125.77119220218941,
+                  715.5775388887544
+                ],
+                [
+                  197.88150932651862,
+                  715.2771540029646
+                ],
+                [
+                  197.88150932651862,
+                  730.7375885934541
+                ],
+                [
+                  125.77119220218941,
+                  730.8173783287419
+                ]
+              ],
+              "bbox": [
+                125.77119220218941,
+                715.2771540029646,
+                197.88150932651862,
+                730.8173783287419
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/144",
+              "block_type": "TableCell",
+              "html": "<td>11</td>",
+              "polygon": [
+                [
+                  196.9994149451259,
+                  715.2878460564451
+                ],
+                [
+                  288.8941857650097,
+                  714.9127312722394
+                ],
+                [
+                  288.8941857650097,
+                  730.6675522088785
+                ],
+                [
+                  196.9994149451259,
+                  730.6675522088785
+                ]
+              ],
+              "bbox": [
+                196.9994149451259,
+                714.9127312722394,
+                288.8941857650097,
+                730.6675522088785
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/145",
+              "block_type": "TableCell",
+              "html": "<td>2. Invigilator's Signature :</td>",
+              "polygon": [
+                [
+                  288.8941857650097,
+                  714.9127312722394
+                ],
+                [
+                  433.30025419625565,
+                  714.9127312722394
+                ],
+                [
+                  433.30025419625565,
+                  730.6675522088785
+                ],
+                [
+                  288.8941857650097,
+                  730.6675522088785
+                ]
+              ],
+              "bbox": [
+                288.8941857650097,
+                714.9127312722394,
+                433.30025419625565,
+                730.6675522088785
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/146",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  433.67533489347966,
+                  715.2878460564451
+                ],
+                [
+                  476.80961507424144,
+                  714.9127312722394
+                ],
+                [
+                  476.80961507424144,
+                  730.6675522088785
+                ],
+                [
+                  433.67533489347966,
+                  730.6675522088785
+                ]
+              ],
+              "bbox": [
+                433.67533489347966,
+                714.9127312722394,
+                476.80961507424144,
+                730.6675522088785
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/0/TableCell/147",
+              "block_type": "TableCell",
+              "html": "<td></td>",
+              "polygon": [
+                [
+                  476.80961507424144,
+                  715.2878460564451
+                ],
+                [
+                  544.3241405745642,
+                  714.9127312722394
+                ],
+                [
+                  544.3241405745642,
+                  730.6675522088785
+                ],
+                [
+                  476.80961507424144,
+                  730.6675522088785
+                ]
+              ],
+              "bbox": [
+                476.80961507424144,
+                714.9127312722394,
+                544.3241405745642,
+                730.6675522088785
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/5",
+                "2": "/page/0/SectionHeader/6"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/5",
+            "2": "/page/0/SectionHeader/6"
+          },
+          "images": null
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/5",
+        "2": "/page/0/SectionHeader/6"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/1/Page/175",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/1/SectionHeader/0'></content-ref><content-ref src='/page/1/SectionHeader/1'></content-ref><content-ref src='/page/1/ListGroup/173'></content-ref><content-ref src='/page/1/Text/175'></content-ref><content-ref src='/page/1/Equation/13'></content-ref><content-ref src='/page/1/ListGroup/174'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          552.0,
+          0.0
+        ],
+        [
+          552.0,
+          657.0
+        ],
+        [
+          0.0,
+          657.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        552.0,
+        657.0
+      ],
+      "children": [
+        {
+          "id": "/page/1/SectionHeader/0",
+          "block_type": "SectionHeader",
+          "html": "<h4>PART A - PHYSICS</h4>",
+          "polygon": [
+            [
+              88.5,
+              32.40087890625
+            ],
+            [
+              202.5,
+              32.40087890625
+            ],
+            [
+              202.5,
+              44.25
+            ],
+            [
+              88.5,
+              44.25
+            ]
+          ],
+          "bbox": [
+            88.5,
+            32.40087890625,
+            202.5,
+            44.25
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/5",
+            "2": "/page/0/SectionHeader/6",
+            "4": "/page/1/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/1",
+          "block_type": "SectionHeader",
+          "html": "<h1>ALL THE GRAPHS/DIAGRAMS GIVEN ARE SCHEMATIC AND NOT DRAWN TO SCALE.</h1>",
+          "polygon": [
+            [
+              28.5,
+              62.55615234375
+            ],
+            [
+              261.4453125,
+              62.55615234375
+            ],
+            [
+              261.4453125,
+              91.42822265625
+            ],
+            [
+              28.5,
+              91.42822265625
+            ]
+          ],
+          "bbox": [
+            28.5,
+            62.55615234375,
+            261.4453125,
+            91.42822265625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/ListGroup/173",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/1/ListItem/2'></content-ref><content-ref src='/page/1/ListItem/7'></content-ref></ul></p>",
+          "polygon": [
+            [
+              27.0,
+              127.037109375
+            ],
+            [
+              267.375,
+              127.037109375
+            ],
+            [
+              267.375,
+              644.16796875
+            ],
+            [
+              27.0,
+              644.16796875
+            ]
+          ],
+          "bbox": [
+            27.0,
+            127.037109375,
+            267.375,
+            644.16796875
+          ],
+          "children": [
+            {
+              "id": "/page/1/ListItem/2",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">1. It is found that if a neutron suffers an elastic collinear collision with deuterium at rest, fractional loss of its energy is p&lt;sub&gt;d&lt;/sub&gt;; while for its similar collision with carbon nucleus at rest, fractional loss of energy is p&lt;sub&gt;c&lt;/sub&gt;. The values of p&lt;sub&gt;d&lt;/sub&gt; and p&lt;sub&gt;c&lt;/sub&gt; are respectively: <ul><li block-type=\"ListItem\" class=\"list-indent-1\">(1) (0,0)</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(2) (0,1)</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(3) (.89, .28)</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(4) (.28, .89)</li></ul></li>",
+              "polygon": [
+                [
+                  27.0,
+                  127.037109375
+                ],
+                [
+                  265.5,
+                  127.037109375
+                ],
+                [
+                  265.5,
+                  364.10888671875
+                ],
+                [
+                  27.0,
+                  364.10888671875
+                ]
+              ],
+              "bbox": [
+                27.0,
+                127.037109375,
+                265.5,
+                364.10888671875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/7",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">2. The mass of a hydrogen molecule is <math display=\"inline\">3.32 \\times 10^{-27}</math> kg. If <math display=\"inline\">10^{23}</math> hydrogen molecules strike, per second, a fixed wall of area 2 cm&lt;sup&gt;2&lt;/sup&gt; at an angle of 45° to the normal, and rebound elastically with a speed of <math display=\"inline\">10^3</math> m/s, then the pressure on the wall is nearly: <ul><li block-type=\"ListItem\" class=\"list-indent-1\">(1) <math display=\"inline\">2.35 \\times 10^2 \\text{ N/m}^2 </math></li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(2) <math display=\"inline\">4.70 \\times 10^2 \\text{ N/m}^2 </math></li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(3) <math display=\"inline\">2.35 \\times 10^3 \\text{ N/m}^2 </math></li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(4) <math display=\"inline\">4.70 \\times 10^3 \\text{ N/m}^2 </math></li></ul></li>",
+              "polygon": [
+                [
+                  28.5,
+                  409.341796875
+                ],
+                [
+                  267.375,
+                  409.341796875
+                ],
+                [
+                  267.375,
+                  644.16796875
+                ],
+                [
+                  28.5,
+                  644.16796875
+                ]
+              ],
+              "bbox": [
+                28.5,
+                409.341796875,
+                267.375,
+                644.16796875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/1/Text/175",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">A solid sphere of radius r made of a soft material of bulk modulus K is surrounded by a liquid in a cylindrical container. A massless piston of area a floats on the surface of the liquid, covering entire cross section of cylindrical container. When a mass m is placed on the surface of the piston to compress the liquid, the fractional decrement in the radius of the sphere,</p>",
+          "polygon": [
+            [
+              273.0,
+              33.0
+            ],
+            [
+              513.75,
+              33.0
+            ],
+            [
+              513.75,
+              179.32763671875
+            ],
+            [
+              273.0,
+              179.32763671875
+            ]
+          ],
+          "bbox": [
+            273.0,
+            33.0,
+            513.75,
+            179.32763671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/13",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\left(\\frac{\\mathrm{dr}}{\\mathrm{r}}\\right)</math>, is:</p>",
+          "polygon": [
+            [
+              303.76171875,
+              188.95166015625
+            ],
+            [
+              351.73828125,
+              188.95166015625
+            ],
+            [
+              351.73828125,
+              216.54052734375
+            ],
+            [
+              303.76171875,
+              216.54052734375
+            ]
+          ],
+          "bbox": [
+            303.76171875,
+            188.95166015625,
+            351.73828125,
+            216.54052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/ListGroup/174",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/1/ListItem/14'></content-ref><content-ref src='/page/1/ListItem/15'></content-ref><content-ref src='/page/1/ListItem/16'></content-ref><content-ref src='/page/1/ListItem/17'></content-ref><content-ref src='/page/1/ListItem/18'></content-ref></ul></p>",
+          "polygon": [
+            [
+              274.5,
+              247.0166015625
+            ],
+            [
+              516.0,
+              247.0166015625
+            ],
+            [
+              516.0,
+              639.99755859375
+            ],
+            [
+              274.5,
+              639.99755859375
+            ]
+          ],
+          "bbox": [
+            274.5,
+            247.0166015625,
+            516.0,
+            639.99755859375
+          ],
+          "children": [
+            {
+              "id": "/page/1/ListItem/14",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(1) <math display=\"inline\">\\frac{\\text{mg}}{3 \\text{ Ka}} </math></li>",
+              "polygon": [
+                [
+                  305.109375,
+                  247.0166015625
+                ],
+                [
+                  359.015625,
+                  247.0166015625
+                ],
+                [
+                  359.015625,
+                  271.3974609375
+                ],
+                [
+                  305.109375,
+                  271.3974609375
+                ]
+              ],
+              "bbox": [
+                305.109375,
+                247.0166015625,
+                359.015625,
+                271.3974609375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/15",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(2) <math display=\"inline\">\\frac{\\text{mg}}{\\text{Ka}} </math></li>",
+              "polygon": [
+                [
+                  304.30078125,
+                  290.6455078125
+                ],
+                [
+                  355.51171875,
+                  290.6455078125
+                ],
+                [
+                  355.51171875,
+                  315.0263671875
+                ],
+                [
+                  304.30078125,
+                  315.0263671875
+                ]
+              ],
+              "bbox": [
+                304.30078125,
+                290.6455078125,
+                355.51171875,
+                315.0263671875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/16",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(3) <math display=\"inline\">\\frac{Ka}{mg} </math></li>",
+              "polygon": [
+                [
+                  304.83984375,
+                  329.46240234375
+                ],
+                [
+                  354.97265625,
+                  329.46240234375
+                ],
+                [
+                  354.97265625,
+                  358.33447265625
+                ],
+                [
+                  304.83984375,
+                  358.33447265625
+                ]
+              ],
+              "bbox": [
+                304.83984375,
+                329.46240234375,
+                354.97265625,
+                358.33447265625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/17",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\"><math display=\"inline\">(4) \\quad \\frac{Ka}{3 \\text{ mg}} </math></li>",
+              "polygon": [
+                [
+                  305.37890625,
+                  375.65771484375
+                ],
+                [
+                  363.75,
+                  375.65771484375
+                ],
+                [
+                  363.05859375,
+                  404.52978515625
+                ],
+                [
+                  305.37890625,
+                  404.52978515625
+                ]
+              ],
+              "bbox": [
+                305.37890625,
+                375.65771484375,
+                363.75,
+                404.52978515625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/18",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">4. Two batteries with e.m.f. 12 V and 13 V are connected in parallel across a load resistor of 10 <math display=\"inline\">\\Omega</math>. The internal resistances of the two batteries are 1 <math display=\"inline\">\\Omega</math> and 2 <math display=\"inline\">\\Omega</math> respectively. The voltage across the load lies between: <ul><li block-type=\"ListItem\" class=\"list-indent-1\">(1) 11.4 V and 11.5 V</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(2) 11.7 V and 11.8 V</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(3) 11.6 V and 11.7 V</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(4) 11.5 V and 11.6 V</li></ul></li>",
+              "polygon": [
+                [
+                  274.5,
+                  442.705078125
+                ],
+                [
+                  516.0,
+                  442.705078125
+                ],
+                [
+                  516.0,
+                  639.99755859375
+                ],
+                [
+                  274.5,
+                  639.99755859375
+                ]
+              ],
+              "bbox": [
+                274.5,
+                442.705078125,
+                516.0,
+                639.99755859375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": null
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/1"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/2/Page/151",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/2/Text/149'></content-ref><content-ref src='/page/2/Text/1'></content-ref><content-ref src='/page/2/ListGroup/147'></content-ref><content-ref src='/page/2/Text/150'></content-ref><content-ref src='/page/2/Picture/12'></content-ref><content-ref src='/page/2/Text/151'></content-ref><content-ref src='/page/2/Text/24'></content-ref><content-ref src='/page/2/ListGroup/148'></content-ref><content-ref src='/page/2/PageFooter/22'></content-ref><content-ref src='/page/2/PageFooter/23'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          544.0,
+          0.0
+        ],
+        [
+          544.0,
+          732.0
+        ],
+        [
+          0.0,
+          732.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        544.0,
+        732.0
+      ],
+      "children": [
+        {
+          "id": "/page/2/Text/149",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">20. The angular width of the central maximum in a single slit diffraction pattern is <math display=\"inline\">60^{\\circ}</math>. The width of the slit is 1 <math display=\"inline\">\\mu</math>m. The slit is illuminated by monochromatic plane waves. If another slit of same width is made near it, Young's fringes can be observed on a screen placed at a distance 50 cm from the slits. If the observed fringe width is 1 cm, what is slit separation distance?</p>",
+          "polygon": [
+            [
+              36.65625,
+              29.666015625
+            ],
+            [
+              276.12689655172414,
+              29.666015625
+            ],
+            [
+              276.12689655172414,
+              194.794921875
+            ],
+            [
+              36.65625,
+              194.794921875
+            ]
+          ],
+          "bbox": [
+            36.65625,
+            29.666015625,
+            276.12689655172414,
+            194.794921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">(i.e. distance between the centres of each slit.)</p>",
+          "polygon": [
+            [
+              64.8125,
+              213.380859375
+            ],
+            [
+              275.3765517241379,
+              213.380859375
+            ],
+            [
+              275.3765517241379,
+              244.119140625
+            ],
+            [
+              64.8125,
+              244.119140625
+            ]
+          ],
+          "bbox": [
+            64.8125,
+            213.380859375,
+            275.3765517241379,
+            244.119140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/ListGroup/147",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/2/ListItem/2'></content-ref><content-ref src='/page/2/ListItem/3'></content-ref><content-ref src='/page/2/ListItem/4'></content-ref><content-ref src='/page/2/ListItem/5'></content-ref><content-ref src='/page/2/ListItem/6'></content-ref></ul></p>",
+          "polygon": [
+            [
+              37.71875,
+              260.560546875
+            ],
+            [
+              276.87724137931036,
+              260.560546875
+            ],
+            [
+              276.87724137931036,
+              643.5
+            ],
+            [
+              37.71875,
+              643.5
+            ]
+          ],
+          "bbox": [
+            37.71875,
+            260.560546875,
+            276.87724137931036,
+            643.5
+          ],
+          "children": [
+            {
+              "id": "/page/2/ListItem/2",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(1) 75 µm</li>",
+              "polygon": [
+                [
+                  66.40625,
+                  260.560546875
+                ],
+                [
+                  129.09375,
+                  260.560546875
+                ],
+                [
+                  129.09375,
+                  274.5
+                ],
+                [
+                  66.40625,
+                  274.5
+                ]
+              ],
+              "bbox": [
+                66.40625,
+                260.560546875,
+                129.09375,
+                274.5
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/3",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(2) 100 μm</li>",
+              "polygon": [
+                [
+                  66.140625,
+                  291.298828125
+                ],
+                [
+                  135.81241379310345,
+                  291.298828125
+                ],
+                [
+                  135.81241379310345,
+                  306.310546875
+                ],
+                [
+                  66.140625,
+                  306.310546875
+                ]
+              ],
+              "bbox": [
+                66.140625,
+                291.298828125,
+                135.81241379310345,
+                306.310546875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/4",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(3) 25 μm</li>",
+              "polygon": [
+                [
+                  65.609375,
+                  324.181640625
+                ],
+                [
+                  130.56,
+                  324.181640625
+                ],
+                [
+                  130.56,
+                  339.193359375
+                ],
+                [
+                  65.609375,
+                  339.193359375
+                ]
+              ],
+              "bbox": [
+                65.609375,
+                324.181640625,
+                130.56,
+                339.193359375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/5",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(4) 50 μm</li>",
+              "polygon": [
+                [
+                  66.40625,
+                  354.5625
+                ],
+                [
+                  129.80965517241378,
+                  354.5625
+                ],
+                [
+                  129.80965517241378,
+                  369.0
+                ],
+                [
+                  66.40625,
+                  369.0
+                ]
+              ],
+              "bbox": [
+                66.40625,
+                354.5625,
+                129.80965517241378,
+                369.0
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/6",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">21. A silver atom in a solid oscillates in simple harmonic motion in some direction with a frequency of 10&lt;sup&gt;12&lt;/sup&gt;/sec. What is the force constant of the bonds connecting one atom with the other? (Mole wt. of silver=108 and Avagadro number=6.02×10&lt;sup&gt;23&lt;/sup&gt; gm mole&lt;sup&gt;-1&lt;/sup&gt;) <ul><li block-type=\"ListItem\" class=\"list-indent-1\">(1) 2.2 N/m</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(2) 5.5 N/m</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(3) 6.4 N/m</li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(4) 7.1 N/m</li></ul></li>",
+              "polygon": [
+                [
+                  37.71875,
+                  419.61328125
+                ],
+                [
+                  276.87724137931036,
+                  419.61328125
+                ],
+                [
+                  276.87724137931036,
+                  643.5
+                ],
+                [
+                  37.71875,
+                  643.5
+                ]
+              ],
+              "bbox": [
+                37.71875,
+                419.61328125,
+                276.87724137931036,
+                643.5
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/2/Text/150",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">From a uniform circular disc of radius R and mass 9 M, a small disc of radius <math display=\"inline\">\\frac{R}{3}</math> is removed as shown in the figure. The moment of inertia of the remaining disc about an axis perpendicular to the plane of the disc and passing through centre of disc is:</p>",
+          "polygon": [
+            [
+              308.125,
+              31.095703125
+            ],
+            [
+              524.875,
+              31.095703125
+            ],
+            [
+              524.875,
+              159.052734375
+            ],
+            [
+              308.125,
+              159.052734375
+            ]
+          ],
+          "bbox": [
+            308.125,
+            31.095703125,
+            524.875,
+            159.052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Picture/12",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              314.446875,
+              168.27421875
+            ],
+            [
+              420.803125,
+              168.27421875
+            ],
+            [
+              420.803125,
+              272.06953125
+            ],
+            [
+              314.446875,
+              272.06953125
+            ]
+          ],
+          "bbox": [
+            314.446875,
+            168.27421875,
+            420.803125,
+            272.06953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {
+            "/page/2/Picture/12": "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"
+          }
+        },
+        {
+          "id": "/page/2/Text/151",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">(1) <math display=\"inline\">10 \\text{ MR}^2 </math></p>",
+          "polygon": [
+            [
+              313.703125,
+              280.5
+            ],
+            [
+              384.17655172413794,
+              280.5
+            ],
+            [
+              384.17655172413794,
+              296.66015625
+            ],
+            [
+              313.703125,
+              296.66015625
+            ]
+          ],
+          "bbox": [
+            313.703125,
+            280.5,
+            384.17655172413794,
+            296.66015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/24",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">22.</p>",
+          "polygon": [
+            [
+              286.63172413793103,
+              32.25
+            ],
+            [
+              304.64,
+              32.25
+            ],
+            [
+              304.64,
+              42.0
+            ],
+            [
+              286.63172413793103,
+              42.0
+            ]
+          ],
+          "bbox": [
+            286.63172413793103,
+            32.25,
+            304.64,
+            42.0
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/ListGroup/148",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/2/ListItem/14'></content-ref><content-ref src='/page/2/ListItem/15'></content-ref><content-ref src='/page/2/ListItem/16'></content-ref><content-ref src='/page/2/ListItem/17'></content-ref></ul></p>",
+          "polygon": [
+            [
+              287.38206896551725,
+              301.6640625
+            ],
+            [
+              524.4910344827587,
+              301.6640625
+            ],
+            [
+              524.4910344827587,
+              640.857421875
+            ],
+            [
+              287.38206896551725,
+              640.857421875
+            ]
+          ],
+          "bbox": [
+            287.38206896551725,
+            301.6640625,
+            524.4910344827587,
+            640.857421875
+          ],
+          "children": [
+            {
+              "id": "/page/2/ListItem/14",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">(2) <math display=\"inline\">\\frac{37}{9}</math> MR&lt;sup&gt;2&lt;/sup&gt;</li>",
+              "polygon": [
+                [
+                  315.5625,
+                  301.6640625
+                ],
+                [
+                  389.9375,
+                  301.6640625
+                ],
+                [
+                  389.9375,
+                  327.3984375
+                ],
+                [
+                  315.5625,
+                  327.3984375
+                ]
+              ],
+              "bbox": [
+                315.5625,
+                301.6640625,
+                389.9375,
+                327.3984375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/15",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\"><math display=\"inline\">(3) \\quad 4 \\text{ MR}^2 </math></li>",
+              "polygon": [
+                [
+                  317.953125,
+                  331.5
+                ],
+                [
+                  379.046875,
+                  331.5
+                ],
+                [
+                  379.046875,
+                  345.984375
+                ],
+                [
+                  317.953125,
+                  345.984375
+                ]
+              ],
+              "bbox": [
+                317.953125,
+                331.5,
+                379.046875,
+                345.984375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/16",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\"><math display=\"inline\">-(4) \\frac{40}{9} MR^2 </math></li>",
+              "polygon": [
+                [
+                  312.375,
+                  352.060546875
+                ],
+                [
+                  398.43310344827586,
+                  352.060546875
+                ],
+                [
+                  398.43310344827586,
+                  377.080078125
+                ],
+                [
+                  312.375,
+                  377.080078125
+                ]
+              ],
+              "bbox": [
+                312.375,
+                352.060546875,
+                398.43310344827586,
+                377.080078125
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/2/ListItem/17",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">23. In a collinear collision, a particle with an initial speed <math display=\"inline\">v_0</math> strikes a stationary particle of the same mass. If the final total kinetic energy is 50% greater than the original kinetic energy, the magnitude of the relative velocity between the two particles, after collision, is: <ul><li block-type=\"ListItem\" class=\"list-indent-1\">(1) <math display=\"inline\">\\frac{v_0}{2} </math></li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\"><math display=\"inline\">(2) \\quad \\frac{v_0}{\\sqrt{2}} </math></li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(3) <math display=\"inline\">\\frac{v_0}{4} </math></li></ul><ul><li block-type=\"ListItem\" class=\"list-indent-1\">(4) <math display=\"inline\">\\sqrt{2} v_{\\rm o} </math></li></ul></li>",
+              "polygon": [
+                [
+                  287.38206896551725,
+                  404.244140625
+                ],
+                [
+                  524.4910344827587,
+                  404.244140625
+                ],
+                [
+                  524.4910344827587,
+                  640.857421875
+                ],
+                [
+                  287.38206896551725,
+                  640.857421875
+                ]
+              ],
+              "bbox": [
+                287.38206896551725,
+                404.244140625,
+                524.4910344827587,
+                640.857421875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/1/SectionHeader/1"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/2/PageFooter/22",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              39.01793103448276,
+              656.2265625
+            ],
+            [
+              89.29103448275862,
+              656.2265625
+            ],
+            [
+              89.29103448275862,
+              670.5234375
+            ],
+            [
+              39.01793103448276,
+              670.5234375
+            ]
+          ],
+          "bbox": [
+            39.01793103448276,
+            656.2265625,
+            89.29103448275862,
+            670.5234375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/PageFooter/23",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              203.34344827586207,
+              656.583984375
+            ],
+            [
+              360.1655172413793,
+              656.583984375
+            ],
+            [
+              360.1655172413793,
+              670.166015625
+            ],
+            [
+              203.34344827586207,
+              670.166015625
+            ]
+          ],
+          "bbox": [
+            203.34344827586207,
+            656.583984375,
+            360.1655172413793,
+            670.166015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/1/SectionHeader/1"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/1"
+      },
+      "images": null
+    }
+  ],
+  "block_type": "Document"
+}

@@ -37,9 +37,7 @@ def _image_html(block_id: str, payload: str) -> str:
     alt_text = block_id.split("/")[-1]
     mime_type = _guess_mime_type()
     return (
-        f'<figure data-block-id="{block_id}">'
-        f'<img src="data:{mime_type};base64,{payload}" alt="{alt_text}"/>'
-        "</figure>"
+        f'<figure data-block-id="{block_id}">' f'<img src="data:{mime_type};base64,{payload}" alt="{alt_text}"/>' "</figure>"
     )
 
 
@@ -111,6 +109,7 @@ def _process_list_item_html(block_id: str, html: str) -> Tuple[str, bool]:
     if not li:
         return html, False
 
+    # Collect direct nested lists (options)
     nested_lists = []
     for child in list(li.contents):
         if getattr(child, "name", None) in {"ul", "ol"}:
@@ -119,16 +118,18 @@ def _process_list_item_html(block_id: str, html: str) -> Tuple[str, bool]:
     if not nested_lists:
         return html, False
 
-    base_contents = list(li.contents)
+    # Wrap the main question text in its own highlight container
+    original_contents = list(li.contents)
     question_div = soup.new_tag(
         "div",
         attrs={"class": ["highlight-block"], "data-block-id": block_id},
     )
-    for content in base_contents:
+    for content in original_contents:
         question_div.append(content)
     li.clear()
     li.append(question_div)
 
+    # Process nested list items so each option is highlighted independently
     for list_idx, nested in enumerate(nested_lists, start=1):
         for option_idx, option in enumerate(nested.find_all("li", recursive=False), start=1):
             option_contents = list(option.contents)
@@ -171,10 +172,7 @@ def _render_html(blocks: Iterable[JSONBlockOutput]) -> str:
     for index, block in enumerate(blocks, start=1):
         body_html = _render_block(block)
         section = (
-            f'<section class="page" data-page="{index}">'
-            f"<header>Page {index}</header>"
-            f"{body_html}"
-            "</section>"
+            f'<section class="page" data-page="{index}">' f"<header>Page {index}</header>" f"{body_html}" "</section>"
         )
         page_sections.append(section)
     return "\n".join(page_sections)
@@ -186,7 +184,7 @@ def _wrap_html(body: str) -> str:
             "<!DOCTYPE html>",
             "<html>",
             "<head>",
-            '    <meta charset="UTF-8">',
+            "    <meta charset=\"UTF-8\">",
             "    <title>Marker JSON Render</title>",
             "    <style>",
             "        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }",
@@ -207,7 +205,7 @@ def _wrap_html(body: str) -> str:
             "            background: white;",
             "        }",
             "        .highlight-table {",
-            "            background: rgba(59, 130, 246, 0.2);",
+            "            background: rgba(59, 130, 246, 0.25);",
             "            border: 1px solid rgba(59, 130, 246, 0.35);",
             "        }",
             "    </style>",
@@ -220,9 +218,7 @@ def _wrap_html(body: str) -> str:
     )
 
 
-def render_json_document(
-    json_path: Path, output_path: Path | None = None
-) -> Path:
+def render_json_document(json_path: Path, output_path: Path | None = None) -> Path:
     """Render a Marker JSON export to an HTML file."""
     blocks = _load_blocks(json_path)
     html_body = _render_html(blocks)

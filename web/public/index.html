@@ -18,6 +18,9 @@
       display: flex;
       flex-direction: column;
     }
+    .hidden {
+      display: none !important;
+    }
     header {
       padding: 1.5rem 2rem;
       background: linear-gradient(135deg, #4f46e5, #7c3aed);
@@ -32,8 +35,14 @@
       flex: 1;
       padding: 2rem clamp(1rem, 4vw, 3rem);
       display: grid;
-      grid-template-columns: minmax(260px, 360px) minmax(420px, 1fr) minmax(320px, 360px);
+      grid-template-columns: minmax(300px, 400px) minmax(600px, 1fr);
       gap: 2rem;
+      grid-auto-rows: min-content;
+    }
+    @media (max-width: 1280px) {
+      main {
+        grid-template-columns: 1fr;
+      }
     }
     .card {
       background: white;
@@ -121,119 +130,105 @@
       background: white;
       box-shadow: inset 0 0 0 1px #e2e8f0;
     }
-    .bucket-actions {
+    .tag-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: #f1f5f9;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      align-items: center;
+    }
+    .tag-toolbar-counts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: #0f172a;
+      font-size: 0.9rem;
+    }
+    .tag-toolbar-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-    }
-    .options-header {
-      display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
     }
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-      padding: 0.85rem;
-      border-radius: 12px;
-      border: 1px solid #d0d7ff;
-      font-family: inherit;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    select,
-    input[type="text"],
-    input[type="number"] {
-      padding: 0.75rem 0.9rem;
+    .tag-toolbar-actions button {
+      background: #4f46e5;
+      color: white;
+      padding: 0.5rem 1rem;
       border-radius: 10px;
-      border: 1px solid #d0d7ff;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
-    .options-list {
+    .tag-toolbar-actions button#tag-reset {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .tag-toolbar-actions button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .tag-status {
+      font-size: 0.8rem;
+      color: #1d4ed8;
+    }
+    .question-preview {
+      border: 1px solid #cbd5f5;
+      background: #f8f9ff;
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.05);
+      transition: opacity 0.25s ease;
+    }
+    .question-preview.hidden {
+      display: none;
+    }
+    .question-preview strong {
+      color: #3730a3;
+    }
+    .question-preview ul {
+      margin: 0.25rem 0 0;
+      padding-left: 1.2rem;
+      color: #1f2937;
+    }
+    .question-preview ul li {
+      margin: 0.15rem 0;
+    }
+    .saved-questions {
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
+      margin-bottom: 0.75rem;
     }
-    .option-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto auto;
-      gap: 0.75rem;
-      align-items: center;
-    }
-    .option-label {
-      font-weight: 600;
-      color: #475569;
-    }
-    .option-text {
-      width: 100%;
-      min-height: 70px;
-      padding: 0.75rem;
-      border-radius: 10px;
-      border: 1px solid #d0d7ff;
-      font-family: inherit;
-      font-size: 0.95rem;
-      resize: vertical;
-    }
-    .surface-btn {
-      background: #eef2ff;
-      color: #4338ca;
-      border: none;
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-    .surface-btn:hover {
-      background: #dbeafe;
-      transform: none;
-    }
-    .surface-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    .question-actions {
+    .saved-question-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: white;
+      padding: 0.85rem 1rem;
       display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0.5rem;
     }
-    .questions-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
+    .saved-question-card h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #1f2937;
     }
-    .questions-table th,
-    .questions-table td {
-      border-bottom: 1px solid #e2e8f0;
-      padding: 0.6rem 0.4rem;
-      text-align: left;
-      font-size: 0.9rem;
+    .saved-question-card ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: #334155;
     }
-    .questions-table th {
-      color: #475569;
+    .saved-question-card ul span {
       font-weight: 600;
-      background: #f8fafc;
-    }
-    .tag-pill {
-      display: inline-flex;
-      align-items: center;
-      background: #eef2ff;
-      color: #4f46e5;
-      border-radius: 999px;
-      padding: 0.2rem 0.55rem;
-      margin-right: 0.3rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    .hidden {
-      display: none;
-    }
-    @media (max-width: 1280px) {
-      main {
-        grid-template-columns: 1fr;
-      }
+      display: inline-block;
+      min-width: 3.5rem;
     }
     @media (max-width: 960px) {
       .preview iframe {
@@ -244,8 +239,8 @@
 </head>
 <body>
   <header>
-    <h1>Marker Assisted Question Builder</h1>
-    <p>Upload a document, let Marker GPU conversion run, then curate questions with confidence.</p>
+    <h1>📄 Marker PDF Converter</h1>
+    <p>Upload a PDF or image file to convert it using Marker GPU processing.</p>
   </header>
   <main>
     <section class="card" id="upload-card">
@@ -274,60 +269,26 @@
 
     <section class="card preview" id="preview-card">
       <h2>Step 2 · Review Output</h2>
+      <div id="tag-toolbar" class="tag-toolbar hidden">
+        <div class="tag-toolbar-counts">
+          <span>Question parts: <strong id="count-question">0</strong></span>
+          <span>Options: <strong id="count-option">0</strong></span>
+          <span>Solutions: <strong id="count-solution">0</strong></span>
+        </div>
+        <div class="tag-toolbar-actions">
+          <button type="button" id="tag-save" disabled>Save Question</button>
+          <button type="button" id="tag-reset">Reset Draft</button>
+          <span id="tag-status" class="tag-status"></span>
+        </div>
+      </div>
+      <div id="saved-questions" class="saved-questions hidden"></div>
+      <div id="question-preview" class="question-preview hidden"></div>
       <div id="result-links" class="links hidden"></div>
       <iframe id="html-preview" title="Rendered Output" class="hidden"></iframe>
       <p id="preview-placeholder">Once conversion finishes, a live preview and handy download links will appear here.</p>
+
     </section>
-    <section class="card" id="builder-card">
-      <h2>Step 3 · Capture to Question Bank</h2>
-      <p style="margin-top:-0.4rem;color:#475569;">Highlight text in the preview, then send it to the appropriate bucket below.</p>
-      <div class="bucket-actions">
-        <button type="button" class="surface-btn" id="capture-stem-button">Send selection to Question Stem</button>
-        <button type="button" class="surface-btn" id="capture-option-button">Add selection as Option</button>
-        <button type="button" class="surface-btn" id="capture-solution-button">Send selection to Solution</button>
-      </div>
-      <label>
-        Question Stem
-        <textarea id="bucket-stem" placeholder="Captured question text will appear here."></textarea>
-      </label>
-      <div class="options-header">
-        <h3 style="margin:0;">Options</h3>
-        <button type="button" class="surface-btn" id="add-blank-option">Add blank option</button>
-      </div>
-      <div class="options-list" id="bucket-options"></div>
-      <label>
-        Solution / Explanation
-        <textarea id="bucket-solution" placeholder="Captured solution or teaching notes appear here."></textarea>
-      </label>
-      <label>
-        Tags (optional)
-        <input type="text" id="question-tags" placeholder="Comma separated tags or topics" />
-      </label>
-      <div class="question-actions">
-        <button type="button" id="save-question-button">Save Question to Bank</button>
-        <button type="button" id="reset-question-button" class="surface-btn">Clear Buckets</button>
-        <button type="button" id="export-question-bank-button" disabled>Download Question Bank JSON</button>
-      </div>
-      <div id="questions-container">
-        <h3 style="margin-top:1.5rem;">Draft Question Bank</h3>
-        <table class="questions-table" id="questions-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Stem Preview</th>
-              <th>Correct Option</th>
-              <th>Tags</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="questions-body">
-            <tr id="empty-row">
-              <td colspan="5" style="text-align:center;color:#94a3b8;padding:1.2rem 0;">No questions captured yet. Use the buttons above to populate buckets.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+
   </main>
 
   <script>
@@ -342,26 +303,466 @@
     const statusText = document.getElementById('status-text');
     const jobMeta = document.getElementById('job-meta');
     const resultLinks = document.getElementById('result-links');
-    const previewPlaceholder = document.getElementById('preview-placeholder');
     const htmlPreview = document.getElementById('html-preview');
-    const captureStemBtn = document.getElementById('capture-stem-button');
-    const captureOptionBtn = document.getElementById('capture-option-button');
-    const captureSolutionBtn = document.getElementById('capture-solution-button');
-    const stemField = document.getElementById('bucket-stem');
-    const solutionField = document.getElementById('bucket-solution');
-    const optionsContainer = document.getElementById('bucket-options');
-    const addBlankOptionBtn = document.getElementById('add-blank-option');
-    const tagsField = document.getElementById('question-tags');
-    const saveQuestionBtn = document.getElementById('save-question-button');
-    const resetQuestionBtn = document.getElementById('reset-question-button');
-    const exportQuestionBtn = document.getElementById('export-question-bank-button');
-    const questionsBody = document.getElementById('questions-body');
-    const emptyRow = document.getElementById('empty-row');
+    const previewPlaceholder = document.getElementById('preview-placeholder');
+    const tagToolbar = document.getElementById('tag-toolbar');
+    const countQuestionEl = document.getElementById('count-question');
+    const countOptionEl = document.getElementById('count-option');
+    const countSolutionEl = document.getElementById('count-solution');
+    const tagSaveButton = document.getElementById('tag-save');
+    const tagResetButton = document.getElementById('tag-reset');
+    const tagStatusLabel = document.getElementById('tag-status');
+    const savedQuestionsContainer = document.getElementById('saved-questions');
+    const questionPreview = document.getElementById('question-preview');
 
     let pollingInterval = null;
     let currentMode = 'upload';
-    let questionBank = [];
-    let editingIndex = null;
+    const questionStore = new Map();
+    const blockQuestionMap = new Map();
+    let activeQuestionId = null;
+    let draftCounter = 0;
+    let previewTimeout = null;
+
+    const hideQuestionPreview = () => {
+      if (previewTimeout) {
+        clearTimeout(previewTimeout);
+        previewTimeout = null;
+      }
+      if (!questionPreview) return;
+      questionPreview.classList.add('hidden');
+      questionPreview.innerHTML = '';
+    };
+
+    const createPreviewList = (ids) => {
+      if (!ids || !ids.size) return '<li>(none)</li>';
+      return [...ids]
+        .map((id) => createSnippetFromElement(getBlockElement(id)))
+        .map((text) => `<li>${text}</li>`)
+        .join('');
+    };
+
+    const showQuestionPreview = (question) => {
+      if (!question) return;
+      if (previewTimeout) {
+        clearTimeout(previewTimeout);
+        previewTimeout = null;
+      }
+      const questionHtml = createPreviewList(question.questionBlocks);
+      const optionsHtml = createPreviewList(question.optionBlocks);
+      const solutionHtml = createPreviewList(question.solutionBlocks);
+      if (!questionPreview) return;
+      questionPreview.innerHTML = `
+        <div><strong>Preview · Question</strong>
+          <ul>${questionHtml}</ul>
+        </div>
+        <div><strong>Options</strong>
+          <ul>${optionsHtml}</ul>
+        </div>
+        <div><strong>Solution</strong>
+          <ul>${solutionHtml}</ul>
+        </div>
+      `;
+      questionPreview.classList.remove('hidden');
+      previewTimeout = setTimeout(hideQuestionPreview, 6000);
+    };
+
+    const createSnippetFromElement = (element) => {
+      if (!element) return '(missing block)';
+      const text = (element.innerText || element.textContent || '').replace(/\s+/g, ' ').trim();
+      if (text) return text.length > 180 ? `${text.slice(0, 180)}…` : text;
+      const img = element.querySelector('img');
+      if (img) {
+        const alt = (img.getAttribute('alt') || '').trim();
+        return alt ? `[Image] ${alt}` : '[Image block]';
+      }
+      return '(empty block)';
+    };
+
+    const getBlockElement = (blockId) => {
+      const doc = htmlPreview.contentDocument;
+      return doc ? doc.querySelector(`.highlight-block[data-block-id="${blockId}"]`) : null;
+    };
+
+    const setBlocksSavedState = (question, saved = true) => {
+      if (!question) return;
+      const allIds = new Set([
+        ...question.questionBlocks,
+        ...question.optionBlocks,
+        ...question.solutionBlocks,
+      ]);
+      allIds.forEach((id) => {
+        const el = getBlockElement(id);
+        if (!el) return;
+        if (saved) {
+          el.setAttribute('data-saved', 'true');
+        } else {
+          el.removeAttribute('data-saved');
+        }
+      });
+    };
+
+    const createNewQuestion = () => {
+      const id = `q-${++draftCounter}`;
+      const question = {
+        id,
+        saved: false,
+        lastUpdated: Date.now(),
+        questionBlocks: new Set(),
+        optionBlocks: new Set(),
+        solutionBlocks: new Set(),
+      };
+      questionStore.set(id, question);
+      return question;
+    };
+
+    const getQuestionTitle = (question) => {
+      if (!question) return 'Untitled';
+      const firstId = [...question.questionBlocks][0];
+      if (!firstId) return 'Untitled';
+      return createSnippetFromElement(getBlockElement(firstId));
+    };
+
+    const removeTagControls = (doc = htmlPreview.contentDocument) => {
+      if (!doc) return;
+      doc.querySelectorAll('.tag-controls').forEach((node) => node.remove());
+    };
+
+    const renderActiveQuestion = () => {
+      if (!activeQuestionId || !questionStore.has(activeQuestionId)) {
+        tagToolbar.classList.add('hidden');
+        countQuestionEl.textContent = 0;
+        countOptionEl.textContent = 0;
+        countSolutionEl.textContent = 0;
+        tagSaveButton.disabled = true;
+        tagStatusLabel.textContent = 'Tag a question block to start.';
+        return;
+      }
+
+      const question = questionStore.get(activeQuestionId);
+      tagToolbar.classList.remove('hidden');
+      countQuestionEl.textContent = question.questionBlocks.size;
+      countOptionEl.textContent = question.optionBlocks.size;
+      countSolutionEl.textContent = question.solutionBlocks.size;
+
+      const ready = question.questionBlocks.size > 0 && question.optionBlocks.size > 0;
+      tagSaveButton.disabled = !ready;
+      tagStatusLabel.textContent = ready
+        ? (question.saved ? 'Question saved.' : 'Ready to save.')
+        : 'Add at least one option before saving.';
+    };
+
+    const renderSavedQuestions = () => {
+      const saved = [...questionStore.values()].filter((q) => q.saved);
+      if (!saved.length) {
+        savedQuestionsContainer.classList.add('hidden');
+        savedQuestionsContainer.innerHTML = '';
+        return;
+      }
+      savedQuestionsContainer.classList.remove('hidden');
+      savedQuestionsContainer.innerHTML = saved
+        .map((question, index) => {
+          const questionSnippets = [...question.questionBlocks]
+            .map((id) => createSnippetFromElement(getBlockElement(id)))
+            .map((text) => `<li>${text}</li>`)
+            .join('');
+          const optionSnippets = [...question.optionBlocks]
+            .map((id) => createSnippetFromElement(getBlockElement(id)))
+            .map((text) => `<li>${text}</li>`)
+            .join('');
+          const solutionSnippets = [...question.solutionBlocks]
+            .map((id) => createSnippetFromElement(getBlockElement(id)))
+            .map((text) => `<li>${text}</li>`)
+            .join('');
+          return `
+            <div class="saved-question-card">
+              <h4>Question ${index + 1}</h4>
+              <div><strong>Stem</strong>
+                <ul>${questionSnippets || '<li>(empty)</li>'}</ul>
+              </div>
+              <div><strong>Options</strong>
+                <ul>${optionSnippets || '<li>(none)</li>'}</ul>
+              </div>
+              <div><strong>Solution</strong>
+                <ul>${solutionSnippets || '<li>(none)</li>'}</ul>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    };
+
+    const handleTagSelection = (element, tag) => {
+      const blockId = element.dataset.blockId;
+      if (!blockId) return;
+      const previousTag = element.getAttribute('data-tag') || null;
+      const previousQuestionId = blockQuestionMap.get(blockId) || null;
+      let question = previousQuestionId ? questionStore.get(previousQuestionId) : null;
+
+      if (previousTag && question) {
+        question[`${previousTag}Blocks`].delete(blockId);
+        const previousElement = getBlockElement(blockId);
+        if (previousElement) {
+          previousElement.removeAttribute('data-saved');
+        }
+        if (question.saved) {
+          question.saved = false;
+          setBlocksSavedState(question, false);
+        }
+        if (!question.saved && !question.questionBlocks.size && !question.optionBlocks.size && !question.solutionBlocks.size) {
+          questionStore.delete(question.id);
+          if (activeQuestionId === question.id) activeQuestionId = null;
+        }
+        blockQuestionMap.delete(blockId);
+      }
+
+      element.removeAttribute('data-tag');
+      element.removeAttribute('data-saved');
+      hideQuestionPreview();
+
+      if (!tag) {
+        removeTagControls();
+        renderActiveQuestion();
+        renderSavedQuestions();
+        return;
+      }
+
+      if (!question) {
+        if (tag === 'question') {
+          if (activeQuestionId && questionStore.has(activeQuestionId)) {
+            const activeQuestion = questionStore.get(activeQuestionId);
+            if (!activeQuestion.saved) {
+              question = activeQuestion;
+            }
+          }
+
+          if (!question) {
+            question = createNewQuestion();
+            activeQuestionId = question.id;
+          }
+        } else {
+          if (!activeQuestionId || !questionStore.has(activeQuestionId)) {
+            removeTagControls();
+            return;
+          }
+          question = questionStore.get(activeQuestionId);
+        }
+      }
+
+      question[`${tag}Blocks`].add(blockId);
+      blockQuestionMap.set(blockId, question.id);
+      element.setAttribute('data-tag', tag);
+      activeQuestionId = question.id;
+
+      if (question.saved) {
+        question.saved = false;
+        setBlocksSavedState(question, false);
+      }
+
+      question.lastUpdated = Date.now();
+      removeTagControls();
+      renderActiveQuestion();
+      renderSavedQuestions();
+    };
+
+    const showTagControls = (element) => {
+      const doc = htmlPreview.contentDocument;
+      if (!doc) return;
+      removeTagControls(doc);
+      const controls = doc.createElement('div');
+      controls.className = 'tag-controls';
+      const buttons = [
+        { label: 'Q', title: 'Mark as Question', tag: 'question' },
+        { label: 'Opt', title: 'Mark as Option', tag: 'option' },
+        { label: 'Sol', title: 'Mark as Solution', tag: 'solution' },
+        { label: 'Clear', title: 'Clear Tag', tag: null },
+      ];
+      buttons.forEach(({ label, title, tag }) => {
+        const btn = doc.createElement('button');
+        btn.type = 'button';
+        btn.textContent = label;
+        btn.title = title;
+        btn.addEventListener('click', (event) => {
+          event.stopPropagation();
+          handleTagSelection(element, tag);
+        });
+        controls.appendChild(btn);
+      });
+      element.appendChild(controls);
+    };
+
+    const handleHighlightClick = (element) => {
+      const blockId = element.dataset.blockId;
+      const mappedQuestionId = blockQuestionMap.get(blockId);
+      if (mappedQuestionId && questionStore.has(mappedQuestionId)) {
+        activeQuestionId = mappedQuestionId;
+      }
+      hideQuestionPreview();
+      showTagControls(element);
+      renderActiveQuestion();
+    };
+    tagResetButton.addEventListener('click', () => {
+      const doc = htmlPreview.contentDocument;
+      if (doc) {
+        doc.querySelectorAll('.highlight-block[data-tag]').forEach((node) => node.removeAttribute('data-tag'));
+        doc.querySelectorAll('.highlight-block[data-saved]').forEach((node) => node.removeAttribute('data-saved'));
+        removeTagControls(doc);
+      }
+      questionStore.clear();
+      blockQuestionMap.clear();
+      activeQuestionId = null;
+      draftCounter = 0;
+      renderActiveQuestion();
+      renderSavedQuestions();
+      tagStatusLabel.textContent = 'Select a question block to start.';
+      hideQuestionPreview();
+    });
+
+    tagSaveButton.addEventListener('click', () => {
+      if (!activeQuestionId || !questionStore.has(activeQuestionId)) {
+        tagStatusLabel.textContent = 'Select a question block to start.';
+        return;
+      }
+      const question = questionStore.get(activeQuestionId);
+      if (!question.questionBlocks.size) {
+        tagStatusLabel.textContent = 'Add at least one question block.';
+        return;
+      }
+      if (!question.optionBlocks.size) {
+        tagStatusLabel.textContent = 'Add at least one option before saving.';
+        return;
+      }
+      question.saved = true;
+      setBlocksSavedState(question, true);
+      renderSavedQuestions();
+      tagStatusLabel.textContent = 'Question saved. You can continue tagging content or start a new question.';
+      showQuestionPreview(question);
+      activeQuestionId = null;
+      renderActiveQuestion();
+    });
+
+    const ensureIframeSelectionStyles = (doc) => {
+      if (!doc) return;
+      if (doc.getElementById('tagging-selection-style')) return;
+      const style = doc.createElement('style');
+      style.id = 'tagging-selection-style';
+      style.textContent = `
+        .highlight-block {
+          cursor: pointer;
+          position: relative;
+          transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .highlight-block:hover {
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+          transform: translateY(-1px);
+        }
+        .highlight-block[data-tag]::after {
+          content: attr(data-tag);
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          font-size: 0.65rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: 0.2rem 0.45rem;
+          border-radius: 999px;
+          color: #0f172a;
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(15, 23, 42, 0.15);
+        }
+        .highlight-block[data-tag="question"]::after {
+          background: rgba(34, 197, 94, 0.2);
+          border-color: rgba(22, 163, 74, 0.4);
+          color: #166534;
+        }
+        .highlight-block[data-tag="question"] {
+          box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.45);
+        }
+        .highlight-block[data-tag="option"]::after {
+          background: rgba(59, 130, 246, 0.2);
+          border-color: rgba(37, 99, 235, 0.35);
+          color: #1d4ed8;
+        }
+        .highlight-block[data-tag="option"] {
+          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.45);
+        }
+        .highlight-block[data-tag="solution"]::after {
+          background: rgba(250, 204, 21, 0.25);
+          border-color: rgba(217, 119, 6, 0.4);
+          color: #b45309;
+        }
+        .highlight-block[data-tag="solution"] {
+          box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.45);
+        }
+        .highlight-block[data-saved="true"] {
+          opacity: 0.45;
+          filter: saturate(60%);
+        }
+        .highlight-block[data-saved="true"]::after {
+          opacity: 0.85;
+        }
+        .tag-controls {
+          position: absolute;
+          left: 12px;
+          bottom: 12px;
+          display: flex;
+          gap: 0.35rem;
+          background: rgba(15, 23, 42, 0.85);
+          padding: 0.3rem 0.45rem;
+          border-radius: 999px;
+          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+        }
+        .tag-controls button {
+          background: transparent;
+          color: #f8fafc;
+          border: 1px solid rgba(248, 250, 252, 0.4);
+          border-radius: 999px;
+          padding: 0.2rem 0.5rem;
+          font-size: 0.7rem;
+          font-weight: 600;
+          cursor: pointer;
+        }
+        .tag-controls button:hover {
+          background: rgba(148, 163, 184, 0.35);
+        }
+      `;
+      doc.head.appendChild(style);
+    };
+
+    const setupHighlightInteractions = () => {
+      if (htmlPreview.classList.contains('hidden')) return;
+      const doc = htmlPreview.contentDocument;
+      if (!doc || !doc.body) return;
+
+      ensureIframeSelectionStyles(doc);
+      questionStore.clear();
+      blockQuestionMap.clear();
+      activeQuestionId = null;
+      draftCounter = 0;
+      renderActiveQuestion();
+      renderSavedQuestions();
+      removeTagControls(doc);
+      doc.querySelectorAll('.highlight-block[data-saved]').forEach((node) => node.removeAttribute('data-saved'));
+      hideQuestionPreview();
+
+      if (!doc.body.dataset.inlineTaggingBound) {
+        doc.addEventListener('click', (event) => {
+          const block = event.target.closest('.highlight-block');
+          if (block) {
+            event.preventDefault();
+            event.stopPropagation();
+            handleHighlightClick(block);
+          } else {
+            removeTagControls(doc);
+          }
+        });
+        doc.body.dataset.inlineTaggingBound = 'true';
+      }
+    };
+
+    htmlPreview.addEventListener('load', () => {
+      setTimeout(setupHighlightInteractions, 0);
+    });
 
     const setStatus = (label, text, tone = 'info') => {
       statusPanel.classList.remove('hidden');
@@ -384,6 +785,19 @@
       htmlPreview.classList.add('hidden');
       htmlPreview.removeAttribute('src');
       previewPlaceholder.classList.remove('hidden');
+      const doc = htmlPreview.contentDocument;
+      if (doc) {
+        doc.querySelectorAll('.highlight-block[data-tag]').forEach((node) => node.removeAttribute('data-tag'));
+        doc.querySelectorAll('.highlight-block[data-saved]').forEach((node) => node.removeAttribute('data-saved'));
+        removeTagControls(doc);
+      }
+      questionStore.clear();
+      blockQuestionMap.clear();
+      activeQuestionId = null;
+      draftCounter = 0;
+      renderActiveQuestion();
+      renderSavedQuestions();
+      hideQuestionPreview();
     };
 
     const toggleForms = (disabled) => {
@@ -416,8 +830,8 @@
       if (result.html_path) {
         const htmlLink = createLink('Download Rendered HTML', `/api/jobs/${jobId}/file?type=html`);
         resultLinks.appendChild(htmlLink);
-        htmlPreview.src = `/api/jobs/${jobId}/file?type=html`;
         htmlPreview.classList.remove('hidden');
+        htmlPreview.src = `/api/jobs/${jobId}/file?type=html`;
       }
 
       if (Array.isArray(result.assets) && result.assets.length > 0) {
@@ -581,259 +995,6 @@
         toggleForms(false);
       }
     });
-    const updateOptionLabels = () => {
-      Array.from(optionsContainer.children).forEach((row, idx) => {
-        const label = row.querySelector('.option-label');
-        if (label) label.textContent = `${String.fromCharCode(65 + idx)}.`;
-      });
-    };
-
-    const enforceSingleSelection = (activeRadio) => {
-      Array.from(optionsContainer.querySelectorAll('input[type="radio"]')).forEach((radio) => {
-        if (radio !== activeRadio) radio.checked = false;
-      });
-    };
-
-    const createOptionRow = (content = '', isCorrect = false) => {
-      const row = document.createElement('div');
-      row.className = 'option-row';
-
-      const label = document.createElement('span');
-      label.className = 'option-label';
-
-      const textarea = document.createElement('textarea');
-      textarea.className = 'option-text';
-      textarea.rows = 2;
-      textarea.value = content;
-
-      const radio = document.createElement('input');
-      radio.type = 'radio';
-      radio.name = 'correct-option';
-      radio.title = 'Mark as correct';
-      radio.checked = isCorrect;
-      radio.addEventListener('change', () => {
-        if (radio.checked) enforceSingleSelection(radio);
-      });
-
-      const removeBtn = document.createElement('button');
-      removeBtn.type = 'button';
-      removeBtn.className = 'surface-btn';
-      removeBtn.textContent = 'Remove';
-      removeBtn.addEventListener('click', () => {
-        optionsContainer.removeChild(row);
-        if (optionsContainer.children.length === 0) {
-          addOption();
-        } else {
-          updateOptionLabels();
-        }
-      });
-
-      row.appendChild(label);
-      row.appendChild(textarea);
-      row.appendChild(radio);
-      row.appendChild(removeBtn);
-      return row;
-    };
-
-    const addOption = (content = '', isCorrect = false) => {
-      const row = createOptionRow(content, isCorrect);
-      optionsContainer.appendChild(row);
-      updateOptionLabels();
-    };
-
-    const resetBuckets = () => {
-      editingIndex = null;
-      stemField.value = '';
-      solutionField.value = '';
-      tagsField.value = '';
-      optionsContainer.innerHTML = '';
-      for (let i = 0; i < 4; i += 1) {
-        addOption();
-      }
-      exportQuestionBtn.disabled = questionBank.length === 0;
-    };
-
-    const getSelectionContent = () => {
-      try {
-        const frameWindow = htmlPreview.contentWindow;
-        if (!frameWindow) return { text: '', html: '' };
-        const selection = frameWindow.getSelection();
-        if (!selection || selection.rangeCount === 0) return { text: '', html: '' };
-        const range = selection.getRangeAt(0);
-        if (range.collapsed) return { text: '', html: '' };
-        const fragment = range.cloneContents();
-        const div = document.createElement('div');
-        div.appendChild(fragment);
-        const html = div.innerHTML.trim();
-        const text = selection.toString().trim();
-        return { text, html };
-      } catch (err) {
-        console.error('Unable to capture selection', err);
-        return { text: '', html: '' };
-      }
-    };
-
-    const captureToField = (field) => {
-      const { html, text } = getSelectionContent();
-      const content = text || html;
-      if (!content) {
-        alert('Select some text in the rendered preview first.');
-        return;
-      }
-      field.value = field.value ? `${field.value}\n\n${content}` : content;
-    };
-
-    const captureOption = () => {
-      const { html, text } = getSelectionContent();
-      const content = text || html;
-      if (!content) {
-        alert('Select some text in the rendered preview first.');
-        return;
-      }
-      addOption(content);
-    };
-
-    captureStemBtn.addEventListener('click', () => captureToField(stemField));
-    captureSolutionBtn.addEventListener('click', () => captureToField(solutionField));
-    captureOptionBtn.addEventListener('click', captureOption);
-    addBlankOptionBtn.addEventListener('click', () => addOption());
-
-    const getOptionsData = () =>
-      Array.from(optionsContainer.children)
-        .map((row) => {
-          const textarea = row.querySelector('.option-text');
-          const radio = row.querySelector('input[type="radio"]');
-          return {
-            content: (textarea.value || '').trim(),
-            is_correct: !!radio.checked,
-          };
-        })
-        .filter((option) => option.content.length > 0);
-
-    const renderQuestionBank = () => {
-      questionsBody.innerHTML = '';
-      if (questionBank.length === 0) {
-        questionsBody.appendChild(emptyRow);
-        exportQuestionBtn.disabled = true;
-        return;
-      }
-      exportQuestionBtn.disabled = false;
-
-      questionBank.forEach((question, idx) => {
-        const tr = document.createElement('tr');
-        const plainStem = question.stem.replace(/<[^>]+>/g, '');
-        const preview = (plainStem || question.stem).slice(0, 80);
-        const correctOption = question.options.find((opt) => opt.is_correct);
-        const correctPreview = correctOption ? correctOption.content.replace(/<[^>]+>/g, '').slice(0, 40) : '—';
-        tr.innerHTML = `
-          <td>${idx + 1}</td>
-          <td>${preview}${(plainStem || question.stem).length > 80 ? '…' : ''}</td>
-          <td>${correctPreview}</td>
-          <td>${question.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join('')}</td>
-          <td style="text-align:right;">
-            <button type="button" class="surface-btn" data-action="edit" data-index="${idx}" style="margin-right:0.4rem;">Edit</button>
-            <button type="button" class="surface-btn" data-action="delete" data-index="${idx}">Delete</button>
-          </td>
-        `;
-        questionsBody.appendChild(tr);
-      });
-    };
-
-    const loadQuestion = (index) => {
-      const question = questionBank[index];
-      if (!question) return;
-      editingIndex = index;
-      stemField.value = question.stem;
-      solutionField.value = question.solution;
-      tagsField.value = question.tags.join(', ');
-      optionsContainer.innerHTML = '';
-      if (question.options.length) {
-        question.options.forEach((option) => addOption(option.content, option.is_correct));
-      } else {
-        addOption();
-      }
-      updateOptionLabels();
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    };
-
-    questionsBody.addEventListener('click', (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLButtonElement)) return;
-      const idx = Number(target.dataset.index);
-      if (Number.isNaN(idx)) return;
-      const action = target.dataset.action;
-      if (action === 'delete') {
-        questionBank.splice(idx, 1);
-        renderQuestionBank();
-        resetBuckets();
-        return;
-      }
-      if (action === 'edit') {
-        loadQuestion(idx);
-      }
-    });
-
-    saveQuestionBtn.addEventListener('click', () => {
-      const stem = stemField.value.trim();
-      if (!stem) {
-        alert('Capture the question stem before saving.');
-        return;
-      }
-      const options = getOptionsData();
-      if (options.length < 2) {
-        alert('Add at least two options and capture their text.');
-        return;
-      }
-      const correctCount = options.filter((opt) => opt.is_correct).length;
-      if (correctCount === 0) {
-        alert('Mark one option as correct.');
-        return;
-      }
-      const question = {
-        stem,
-        options,
-        solution: solutionField.value.trim(),
-        tags: tagsField.value
-          .split(',')
-          .map((tag) => tag.trim())
-          .filter(Boolean),
-      };
-      if (editingIndex !== null) {
-        questionBank[editingIndex] = question;
-      } else {
-        questionBank.push(question);
-      }
-      renderQuestionBank();
-      resetBuckets();
-    });
-
-    resetQuestionBtn.addEventListener('click', () => {
-      resetBuckets();
-    });
-
-    exportQuestionBtn.addEventListener('click', () => {
-      if (questionBank.length === 0) return;
-      const payload = {
-        generated_at: new Date().toISOString(),
-        question_bank: questionBank.map((question, idx) => ({
-          id: `q_${idx + 1}`,
-          stem: question.stem,
-          options: question.options,
-          solution: question.solution,
-          tags: question.tags,
-        })),
-      };
-      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `question_bank_${new Date().toISOString().slice(0, 10)}.json`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-
-    resetBuckets();
-    renderQuestionBank();
   </script>
 </body>
 </html>

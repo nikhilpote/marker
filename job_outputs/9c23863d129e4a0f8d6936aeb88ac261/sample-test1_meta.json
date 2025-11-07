@@ -1,0 +1,256 @@
+{
+  "table_of_contents": [
+    {
+      "title": "PAPER - 1: PHYSICS, MATHEMATICS & CHEMISTRY",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          54.726451612903226,
+          65.02490234375
+        ],
+        [
+          373.33935483870965,
+          65.02490234375
+        ],
+        [
+          373.33935483870965,
+          77.27364554637282
+        ],
+        [
+          54.726451612903226,
+          77.27364554637282
+        ]
+      ]
+    },
+    {
+      "title": "B Booklet Code",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          450.556129032258,
+          71.27180899908173
+        ],
+        [
+          534.52,
+          71.27180899908173
+        ],
+        [
+          534.52,
+          125.66162109374999
+        ],
+        [
+          450.556129032258,
+          125.66162109374999
+        ]
+      ]
+    },
+    {
+      "title": "Important Instructions:",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          56.975483870967736,
+          122.07128906249999
+        ],
+        [
+          198.66451612903225,
+          122.07128906249999
+        ],
+        [
+          198.66451612903225,
+          134.8369140625
+        ],
+        [
+          56.975483870967736,
+          134.8369140625
+        ]
+      ]
+    },
+    {
+      "title": "PART A - PHYSICS",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          88.5,
+          32.40087890625
+        ],
+        [
+          202.5,
+          32.40087890625
+        ],
+        [
+          202.5,
+          44.25
+        ],
+        [
+          88.5,
+          44.25
+        ]
+      ]
+    },
+    {
+      "title": "ALL THE GRAPHS/DIAGRAMS GIVEN ARE SCHEMATIC AND NOT DRAWN TO SCALE.",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          28.5,
+          62.55615234375
+        ],
+        [
+          261.4453125,
+          62.55615234375
+        ],
+        [
+          261.4453125,
+          91.42822265625
+        ],
+        [
+          28.5,
+          91.42822265625
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "surya",
+      "block_counts": [
+        [
+          "Line",
+          60
+        ],
+        [
+          "TableCell",
+          36
+        ],
+        [
+          "Span",
+          30
+        ],
+        [
+          "ListItem",
+          13
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "Form",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "surya",
+      "block_counts": [
+        [
+          "Line",
+          97
+        ],
+        [
+          "Span",
+          53
+        ],
+        [
+          "ListItem",
+          20
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "ListGroup",
+          2
+        ],
+        [
+          "Equation",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "surya",
+      "block_counts": [
+        [
+          "Line",
+          84
+        ],
+        [
+          "Span",
+          38
+        ],
+        [
+          "ListItem",
+          20
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "ListGroup",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/sample-test1"
+}
