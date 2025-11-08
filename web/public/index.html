@@ -105,6 +105,51 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
+    .step-drawer {
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      background: #f8fafc;
+      padding: 0.25rem 0.75rem 0.75rem;
+      margin-top: 0.5rem;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.1);
+    }
+    .step-drawer[open] {
+      background: #f1f5f9;
+    }
+    .step-drawer summary {
+      list-style: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.25rem;
+    }
+    .step-drawer summary::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    }
+    .step-drawer summary::after {
+      content: '\25BE';
+      margin-left: auto;
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+    }
+    .step-drawer[open] summary::after {
+      transform: rotate(-180deg);
+    }
+    .step-drawer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
     .links {
       display: flex;
       flex-wrap: wrap;
@@ -178,6 +223,78 @@
     .tag-status {
       font-size: 0.8rem;
       color: #1d4ed8;
+    }
+    .tag-dock {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding: 0.85rem 1rem;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.35);
+      color: #f8fafc;
+      z-index: 2600;
+      backdrop-filter: blur(6px);
+      transition: opacity 0.2s ease, transform 0.25s ease;
+    }
+    .tag-dock.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+    .tag-dock-counts {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #cbd5f5;
+      font-weight: 700;
+    }
+    .tag-dock-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tag-dock button {
+      border: none;
+      border-radius: 10px;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    }
+    .tag-dock button.primary {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+    .tag-dock button.secondary {
+      background: rgba(148, 163, 184, 0.25);
+      color: #e2e8f0;
+    }
+    .tag-dock button.danger {
+      background: rgba(239, 68, 68, 0.22);
+      color: #fecaca;
+    }
+    .tag-dock button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    @media (max-width: 720px) {
+      .tag-dock {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        padding: 0.75rem;
+      }
+      .tag-dock-buttons {
+      justify-content: space-between;
+      }
+      .tag-dock button {
+        flex: 1 1 30%;
+      }
     }
     body.modal-open {
       overflow: hidden;
@@ -311,6 +428,68 @@
       font-size: 0.85rem;
       color: #64748b;
     }
+    .mobile-panel-toggle {
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      background: #1d4ed8;
+      color: #f1f5f9;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 999px;
+      padding: 0.45rem 0.95rem;
+    }
+    .mobile-panel-toggle svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    .mobile-panel-close {
+      display: none;
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: rgba(15, 23, 42, 0.08);
+      color: #0f172a;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .mobile-panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      backdrop-filter: blur(2px);
+      z-index: 2900;
+    }
+    .mobile-panel-overlay.hidden {
+      display: none;
+    }
+    .step-summary {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .step-summary.hidden {
+      display: none;
+    }
+    .step-summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .step-summary-header h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+    #add-document-button {
+      background: #2563eb;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.9rem;
+    }
     .question-preview {
       border: 1px solid #cbd5f5;
       background: #f8f9ff;
@@ -343,6 +522,28 @@
       margin-bottom: 0.75rem;
     }
     .saved-question-card {
+      position: relative;
+    }
+    .saved-question-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+      justify-content: flex-end;
+    }
+    .saved-question-actions button {
+      border: none;
+      border-radius: 10px;
+      padding: 0.4rem 0.95rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(59, 130, 246, 0.12);
+      color: #1d4ed8;
+    }
+    .saved-question-actions button:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+    .saved-question-card {
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       background: white;
@@ -366,9 +567,91 @@
       display: inline-block;
       min-width: 3.5rem;
     }
+    .step-summary.editing .question-preview,
+    .step-summary.editing .saved-questions {
+      display: none;
+    }
+    .step-summary-editor {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .step-summary.editing .step-summary-editor {
+      display: flex;
+    }
+    .summary-editor-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.12);
+    }
+    .summary-editor-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.65rem;
+    }
+    .summary-editor-actions button {
+      border: none;
+      border-radius: 10px;
+      padding: 0.45rem 1.05rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .summary-editor-actions button.secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .summary-editor-actions button.primary {
+      background: #4f46e5;
+      color: white;
+    }
     @media (max-width: 960px) {
       .preview iframe {
         min-height: 60vh;
+      }
+    }
+    #upload-card {
+      position: relative;
+    }
+    @media (max-width: 720px) {
+      .step-drawer {
+        padding: 0.25rem 0.5rem 0.6rem;
+      }
+      .step-drawer summary {
+        font-size: 0.9rem;
+      }
+      .mobile-panel-toggle {
+        display: inline-flex;
+      }
+      body.mobile-panel-mode #upload-card {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: min(360px, 88vw);
+        max-width: 88vw;
+        height: 100vh;
+        overflow-y: auto;
+        transform: translateX(-105%);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 0 18px 18px 0;
+        box-shadow: 0 28px 60px rgba(15, 23, 42, 0.35);
+        z-index: 3000;
+        background: #ffffff;
+      }
+      body.mobile-panel-mode.mobile-panel-open #upload-card {
+        transform: translateX(0);
+      }
+      body.mobile-panel-mode.mobile-panel-open .mobile-panel-close {
+        display: inline-flex;
+      }
+      body.mobile-panel-mode #preview-card {
+        margin-top: 1rem;
       }
     }
   </style>
@@ -381,6 +664,11 @@
   <main>
     <section class="card" id="upload-card">
       <h2>Step 1 · Provide Document</h2>
+      <button type="button" id="step-panel-close" class="mobile-panel-close">Close</button>
+      <div id="step1-forms-container">
+        <details id="step1-drawer" class="step-drawer" open>
+          <summary>Upload a file or import JSON</summary>
+          <div class="step-drawer-content">
       <form id="upload-form">
         <label>
           Upload PDF or image file for GPU conversion
@@ -388,7 +676,7 @@
         </label>
         <button type="submit" id="upload-button">Queue GPU Conversion</button>
       </form>
-      <div style="border-top: 1px solid #e2e8f0; margin: 1rem 0;"></div>
+            <div style="border-top: 1px solid #e2e8f0;"></div>
       <form id="json-form">
         <label>
           Or load an existing Marker JSON export
@@ -396,15 +684,33 @@
         </label>
         <button type="submit" id="json-button">Import JSON</button>
       </form>
+          </div>
+        </details>
+      </div>
+      <div id="step1-summary" class="step-summary hidden">
+        <div class="step-summary-header">
+          <h3>Tagged Questions</h3>
+          <button type="button" id="add-document-button">Add New Document</button>
+        </div>
+        <div id="question-preview" class="question-preview hidden"></div>
+        <div id="saved-questions" class="saved-questions hidden"></div>
+        <div id="step-summary-editor" class="step-summary-editor hidden"></div>
+      </div>
       <div class="status hidden" id="status-panel">
         <div><span class="badge" id="status-badge">Waiting</span></div>
         <p id="status-text"></p>
         <div id="job-meta"></div>
       </div>
     </section>
-
+    <div id="mobile-panel-overlay" class="mobile-panel-overlay hidden"></div>
     <section class="card preview" id="preview-card">
       <h2>Step 2 · Review Output</h2>
+      <button type="button" id="step-panel-open" class="mobile-panel-toggle">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M4 6h16a1 1 0 0 0 0-2H4a1 1 0 0 0 0 2Zm16 4H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2Zm0 6H4a1 1 0 1 0 0 2h16a1 1 0 0 0 0-2Z"/>
+        </svg>
+        Panel
+      </button>
       <div id="tag-toolbar" class="tag-toolbar hidden">
         <div class="tag-toolbar-counts">
           <span>Question parts: <strong id="count-question">0</strong></span>
@@ -418,8 +724,6 @@
           <span id="tag-status" class="tag-status"></span>
         </div>
       </div>
-      <div id="saved-questions" class="saved-questions hidden"></div>
-      <div id="question-preview" class="question-preview hidden"></div>
       <div id="result-links" class="links hidden"></div>
       <iframe id="html-preview" title="Rendered Output" class="hidden"></iframe>
       <p id="preview-placeholder">Once conversion finishes, a live preview and handy download links will appear here.</p>
@@ -440,8 +744,17 @@
         <button type="button" id="draft-editor-cancel">Cancel</button>
         <button type="button" id="draft-editor-apply">Apply Changes</button>
       </footer>
-    </div>
-  </div>
+      </div>
+      </div>
+
+  <aside id="tag-dock" class="tag-dock hidden" aria-live="polite">
+    <div id="tag-dock-counts" class="tag-dock-counts">Q 0 · Opt 0 · Sol 0</div>
+    <div class="tag-dock-buttons">
+      <button type="button" id="tag-dock-edit" class="secondary" disabled>Edit Draft</button>
+      <button type="button" id="tag-dock-save" class="primary" disabled>Save Question</button>
+      <button type="button" id="tag-dock-reset" class="danger">Reset Draft</button>
+      </div>
+  </aside>
 
   <script>
     const uploadForm = document.getElementById('upload-form');
@@ -473,6 +786,88 @@
     const draftEditorClose = document.getElementById('draft-editor-close');
     const draftEditorCancel = document.getElementById('draft-editor-cancel');
     const draftEditorApply = document.getElementById('draft-editor-apply');
+    const tagDock = document.getElementById('tag-dock');
+    const tagDockCounts = document.getElementById('tag-dock-counts');
+    const tagDockSaveButton = document.getElementById('tag-dock-save');
+    const tagDockEditButton = document.getElementById('tag-dock-edit');
+    const tagDockResetButton = document.getElementById('tag-dock-reset');
+    const stepDrawer = document.getElementById('step1-drawer');
+    const stepFormsContainer = document.getElementById('step1-forms-container');
+    const stepSummaryContainer = document.getElementById('step1-summary');
+    const stepSummaryEditor = document.getElementById('step-summary-editor');
+    const addDocumentButton = document.getElementById('add-document-button');
+    const stepPanelOpenButton = document.getElementById('step-panel-open');
+    const stepPanelCloseButton = document.getElementById('step-panel-close');
+    const mobilePanelOverlay = document.getElementById('mobile-panel-overlay');
+
+    let stepDrawerMedia = null;
+
+    const adjustStepDrawerOpen = (mediaOrEvent = null) => {
+      if (!stepDrawer) return;
+      const matches =
+        mediaOrEvent && typeof mediaOrEvent.matches === 'boolean'
+          ? mediaOrEvent.matches
+          : stepDrawerMedia
+            ? stepDrawerMedia.matches
+            : window.matchMedia('(max-width: 720px)').matches;
+      if (stepFormsContainer && stepFormsContainer.classList.contains('hidden')) {
+        stepDrawer.open = false;
+        return;
+      }
+      stepDrawer.open = !matches;
+    };
+
+    const closeSummaryEditor = () => {
+      if (stepSummaryEditor) {
+        stepSummaryEditor.innerHTML = '';
+        stepSummaryEditor.classList.add('hidden');
+      }
+      summaryEditorQuestionId = null;
+      if (stepSummaryContainer) stepSummaryContainer.classList.remove('editing');
+    };
+
+    const showStepForms = () => {
+      closeSummaryEditor();
+      if (stepFormsContainer) stepFormsContainer.classList.remove('hidden');
+      if (stepSummaryContainer) stepSummaryContainer.classList.add('hidden');
+      adjustStepDrawerOpen();
+      openMobilePanel();
+    };
+
+    const showStepSummary = () => {
+      closeSummaryEditor();
+      if (stepFormsContainer) stepFormsContainer.classList.add('hidden');
+      if (stepSummaryContainer) stepSummaryContainer.classList.remove('hidden');
+      if (stepDrawer) stepDrawer.open = false;
+      openMobilePanel();
+    };
+
+    const closeMobilePanel = () => {
+      document.body.classList.remove('mobile-panel-open');
+      if (mobilePanelOverlay) mobilePanelOverlay.classList.add('hidden');
+    };
+
+    const openMobilePanel = () => {
+      if (!document.body.classList.contains('mobile-panel-mode')) return;
+      document.body.classList.add('mobile-panel-open');
+      if (mobilePanelOverlay) mobilePanelOverlay.classList.remove('hidden');
+    };
+
+    const syncMobilePanelState = (mediaOrEvent = null) => {
+      const matches =
+        mediaOrEvent && typeof mediaOrEvent.matches === 'boolean'
+          ? mediaOrEvent.matches
+          : stepDrawerMedia
+            ? stepDrawerMedia.matches
+            : window.matchMedia('(max-width: 720px)').matches;
+      if (matches) {
+        document.body.classList.add('mobile-panel-mode');
+        closeMobilePanel();
+      } else {
+        document.body.classList.remove('mobile-panel-mode');
+        closeMobilePanel();
+      }
+    };
 
     let pollingInterval = null;
     let currentMode = 'upload';
@@ -481,6 +876,19 @@
     let activeQuestionId = null;
     let draftCounter = 0;
     let previewTimeout = null;
+    let summaryEditorQuestionId = null;
+
+    if (stepDrawer) {
+      stepDrawerMedia = window.matchMedia('(max-width: 720px)');
+      adjustStepDrawerOpen(stepDrawerMedia);
+      syncMobilePanelState(stepDrawerMedia);
+      stepDrawerMedia.addEventListener('change', (event) => {
+        adjustStepDrawerOpen(event);
+        syncMobilePanelState(event);
+      });
+    } else {
+      syncMobilePanelState();
+    }
 
     const hideQuestionPreview = () => {
       if (previewTimeout) {
@@ -647,6 +1055,13 @@
         countSolutionEl.textContent = 0;
         tagSaveButton.disabled = true;
       if (tagEditDraftButton) tagEditDraftButton.disabled = true;
+        if (tagDock) {
+          tagDock.classList.add('hidden');
+          if (tagDockCounts) tagDockCounts.textContent = 'Q 0 · Opt 0 · Sol 0';
+        }
+        if (tagDockSaveButton) tagDockSaveButton.disabled = true;
+        if (tagDockEditButton) tagDockEditButton.disabled = true;
+        if (tagDockResetButton) tagDockResetButton.disabled = true;
         tagStatusLabel.textContent = 'Tag a question block to start.';
         return;
       }
@@ -663,6 +1078,25 @@
         const hasContent =
           question.questionBlocks.size + question.optionBlocks.size + question.solutionBlocks.size > 0;
         tagEditDraftButton.disabled = !hasContent;
+      }
+      if (tagDock) {
+        const qCount = question.questionBlocks.size;
+        const optCount = question.optionBlocks.size;
+        const solCount = question.solutionBlocks.size;
+        const hasContent = qCount + optCount + solCount > 0;
+        if (hasContent) {
+          tagDock.classList.remove('hidden');
+          if (tagDockCounts) tagDockCounts.textContent = `Q ${qCount} · Opt ${optCount} · Sol ${solCount}`;
+        } else {
+          tagDock.classList.add('hidden');
+          if (tagDockCounts) tagDockCounts.textContent = 'Q 0 · Opt 0 · Sol 0';
+        }
+        if (tagDockSaveButton) tagDockSaveButton.disabled = tagSaveButton.disabled;
+        if (tagDockEditButton) {
+          const editDisabled = tagEditDraftButton ? tagEditDraftButton.disabled : !hasContent;
+          tagDockEditButton.disabled = editDisabled;
+        }
+        if (tagDockResetButton) tagDockResetButton.disabled = !hasContent;
       }
       tagStatusLabel.textContent = ready
         ? (question.saved ? 'Question saved.' : 'Ready to save.')
@@ -692,7 +1126,7 @@
             .map((text) => `<li>${text}</li>`)
             .join('');
           return `
-            <div class="saved-question-card">
+            <div class="saved-question-card" data-question-id="${question.id}">
               <h4>Question ${index + 1}</h4>
               <div><strong>Stem</strong>
                 <ul>${questionSnippets || '<li>(empty)</li>'}</ul>
@@ -702,6 +1136,9 @@
               </div>
               <div><strong>Solution</strong>
                 <ul>${solutionSnippets || '<li>(none)</li>'}</ul>
+              </div>
+              <div class="saved-question-actions">
+                <button type="button" data-action="resume-edit">Edit Question</button>
               </div>
             </div>
           `;
@@ -963,6 +1400,107 @@
       tagStatusLabel.textContent = 'Draft updated. Review and save.';
     };
 
+    const openSummaryEditor = (questionId) => {
+      if (!stepSummaryEditor || !stepSummaryContainer) return;
+      if (!questionId || !questionStore.has(questionId)) {
+        tagStatusLabel.textContent = 'Saved question not found.';
+        return;
+      }
+      const question = questionStore.get(questionId);
+      closeSummaryEditor();
+
+      if (stepSummaryContainer.classList.contains('hidden')) {
+        showStepSummary();
+      }
+      summaryEditorQuestionId = questionId;
+      stepSummaryContainer.classList.add('editing');
+      stepSummaryEditor.classList.remove('hidden');
+      const editorCard = document.createElement('div');
+      editorCard.className = 'summary-editor-card';
+
+      const orderedQuestions = getOrderedBlockIds(question.questionBlocks);
+      const orderedOptions = getOrderedBlockIds(question.optionBlocks);
+      const orderedSolutions = getOrderedBlockIds(question.solutionBlocks);
+
+      editorCard.appendChild(
+        buildEditorSection('Question', orderedQuestions, 'No question parts tagged yet.', 'Question part')
+      );
+      editorCard.appendChild(
+        buildEditorSection('Options', orderedOptions, 'No options tagged yet.', 'Option')
+      );
+      editorCard.appendChild(
+        buildEditorSection('Solution', orderedSolutions, 'No solution content tagged yet.', 'Solution item')
+      );
+
+      const actions = document.createElement('div');
+      actions.className = 'summary-editor-actions';
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'secondary';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.addEventListener('click', () => closeSummaryEditor());
+      const applyBtn = document.createElement('button');
+      applyBtn.type = 'button';
+      applyBtn.className = 'primary';
+      applyBtn.textContent = 'Apply Changes';
+      applyBtn.addEventListener('click', () => applySummaryEditorChanges());
+      actions.appendChild(cancelBtn);
+      actions.appendChild(applyBtn);
+      editorCard.appendChild(actions);
+
+      stepSummaryEditor.appendChild(editorCard);
+      if (stepSummaryContainer.scrollIntoView) {
+        stepSummaryContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      activeQuestionId = questionId;
+      renderActiveQuestion();
+      tagStatusLabel.textContent = 'Editing question in summary.';
+    };
+
+    const applySummaryEditorChanges = () => {
+      if (!summaryEditorQuestionId || !questionStore.has(summaryEditorQuestionId)) {
+        closeSummaryEditor();
+        return;
+      }
+      if (!stepSummaryEditor) {
+        summaryEditorQuestionId = null;
+        return;
+      }
+      const question = questionStore.get(summaryEditorQuestionId);
+      const fields = stepSummaryEditor.querySelectorAll('.editor-field');
+      if (!fields.length) {
+        closeSummaryEditor();
+        return;
+      }
+
+      fields.forEach((field) => {
+        const blockId = field.dataset.blockId;
+        if (!blockId) return;
+        const element = getBlockElement(blockId);
+        if (!element) return;
+        element.innerHTML = field.innerHTML;
+      });
+
+      question.saved = true;
+      setBlocksSavedState(question, true);
+
+      activeQuestionId = summaryEditorQuestionId;
+      renderActiveQuestion();
+      renderSavedQuestions();
+      hideQuestionPreview();
+      closeSummaryEditor();
+      const updatedQuestion = questionStore.get(summaryEditorQuestionId);
+      if (updatedQuestion) {
+        showQuestionPreview(updatedQuestion);
+      }
+      tagStatusLabel.textContent = 'Question updated.';
+    };
+
+    const resumeSavedQuestion = (questionId) => {
+      if (!questionId || !questionStore.has(questionId)) return;
+      openSummaryEditor(questionId);
+    };
+
     const handleHighlightClick = (element) => {
       const blockId = element.dataset.blockId;
       const mappedQuestionId = blockQuestionMap.get(blockId);
@@ -1194,6 +1732,7 @@
     };
 
     const resetPreview = () => {
+      showStepForms();
       resultLinks.classList.add('hidden');
       resultLinks.innerHTML = '';
       htmlPreview.classList.add('hidden');
@@ -1272,6 +1811,7 @@
         assetsContainer.appendChild(list);
         resultLinks.appendChild(assetsContainer);
       }
+      showStepSummary();
     };
 
     const statusMessages = {
@@ -1426,11 +1966,72 @@
     if (draftEditorBackdrop) {
       draftEditorBackdrop.addEventListener('click', closeDraftEditor);
     }
+    if (stepPanelOpenButton) {
+      stepPanelOpenButton.addEventListener('click', () => openMobilePanel());
+    }
+    if (stepPanelCloseButton) {
+      stepPanelCloseButton.addEventListener('click', () => closeMobilePanel());
+    }
+    if (mobilePanelOverlay) {
+      mobilePanelOverlay.addEventListener('click', () => closeMobilePanel());
+    }
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && draftEditor && !draftEditor.classList.contains('hidden')) {
-        closeDraftEditor();
+      if (event.key === 'Escape') {
+        if (draftEditor && !draftEditor.classList.contains('hidden')) {
+          closeDraftEditor();
+          return;
+        }
+        if (
+          document.body.classList.contains('mobile-panel-mode') &&
+          document.body.classList.contains('mobile-panel-open')
+        ) {
+          closeMobilePanel();
+        }
       }
     });
+    if (tagDockSaveButton) {
+      tagDockSaveButton.addEventListener('click', () => {
+        if (!tagSaveButton.disabled) {
+          tagSaveButton.click();
+        }
+      });
+    }
+    if (tagDockEditButton) {
+      tagDockEditButton.addEventListener('click', () => {
+        if (!tagDockEditButton.disabled) {
+          openDraftEditor();
+        }
+      });
+    }
+    if (tagDockResetButton) {
+      tagDockResetButton.addEventListener('click', () => {
+        if (!tagDockResetButton.disabled) {
+          tagResetButton.click();
+        }
+      });
+    }
+    savedQuestionsContainer.addEventListener('click', (event) => {
+      const trigger = event.target.closest('button[data-action="resume-edit"]');
+      if (!trigger) return;
+      const card = trigger.closest('.saved-question-card');
+      if (!card) return;
+      const questionId = card.dataset.questionId;
+      resumeSavedQuestion(questionId);
+    });
+    if (addDocumentButton) {
+      addDocumentButton.addEventListener('click', () => {
+        resetPreview();
+        toggleForms(false);
+        if (statusPanel) statusPanel.classList.add('hidden');
+        statusText.textContent = '';
+        jobMeta.innerHTML = '';
+        statusBadge.textContent = 'Waiting';
+        statusBadge.style.background = '#e0f2fe';
+        statusBadge.style.color = '#0369a1';
+        fileInput.value = '';
+        jsonInput.value = '';
+      });
+    }
   </script>
 </body>
 </html>
