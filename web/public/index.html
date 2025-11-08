@@ -801,6 +801,40 @@
     const mobilePanelOverlay = document.getElementById('mobile-panel-overlay');
 
     let stepDrawerMedia = null;
+    const pendingSelectionQueue = [];
+
+    const updatePendingSelectionStyles = () => {
+      const doc = htmlPreview.contentDocument;
+      if (!doc) return;
+      doc.querySelectorAll('.highlight-block[data-pending="true"]').forEach((node) => {
+        node.removeAttribute('data-pending');
+      });
+      pendingSelectionQueue.forEach((id) => {
+        const block = getBlockElement(id);
+        if (block) block.setAttribute('data-pending', 'true');
+      });
+    };
+
+    const clearPendingSelection = () => {
+      pendingSelectionQueue.length = 0;
+      const doc = htmlPreview.contentDocument;
+      if (doc) {
+        doc.querySelectorAll('.highlight-block[data-pending="true"]').forEach((node) =>
+          node.removeAttribute('data-pending')
+        );
+      }
+    };
+
+    const addToPendingSelection = (blockId, { reset = false } = {}) => {
+      if (!blockId) return;
+      if (reset) {
+        clearPendingSelection();
+      }
+      if (!pendingSelectionQueue.includes(blockId)) {
+        pendingSelectionQueue.push(blockId);
+      }
+      updatePendingSelectionStyles();
+    };
 
     const adjustStepDrawerOpen = (mediaOrEvent = null) => {
       if (!stepDrawer) return;
@@ -823,11 +857,13 @@
         stepSummaryEditor.classList.add('hidden');
       }
       summaryEditorQuestionId = null;
+      clearPendingSelection();
       if (stepSummaryContainer) stepSummaryContainer.classList.remove('editing');
     };
 
     const showStepForms = () => {
       closeSummaryEditor();
+      clearPendingSelection();
       if (stepFormsContainer) stepFormsContainer.classList.remove('hidden');
       if (stepSummaryContainer) stepSummaryContainer.classList.add('hidden');
       adjustStepDrawerOpen();
@@ -836,6 +872,7 @@
 
     const showStepSummary = () => {
       closeSummaryEditor();
+      clearPendingSelection();
       if (stepFormsContainer) stepFormsContainer.classList.add('hidden');
       if (stepSummaryContainer) stepSummaryContainer.classList.remove('hidden');
       if (stepDrawer) stepDrawer.open = false;
@@ -1146,17 +1183,19 @@
         .join('');
     };
 
-    const handleTagSelection = (element, tag) => {
+    const applyTagToBlock = (element, tag) => {
+      if (!element) return { question: null };
       const blockId = element.dataset.blockId;
-      if (!blockId) return;
-      const previousTag = element.getAttribute('data-tag') || null;
-      const previousQuestionId = blockQuestionMap.get(blockId) || null;
-      let question = previousQuestionId ? questionStore.get(previousQuestionId) : null;
+      if (!blockId) return { question: null };
 
       if (element.dataset.editing === 'true') {
         const editToggle = element.querySelector('.tag-edit-button');
         disableEditing(element, editToggle || null);
       }
+
+      const previousTag = element.getAttribute('data-tag') || null;
+      const previousQuestionId = blockQuestionMap.get(blockId) || null;
+      let question = previousQuestionId ? questionStore.get(previousQuestionId) : null;
 
       if (previousTag && question) {
         question[`${previousTag}Blocks`].delete(blockId);
@@ -1172,18 +1211,17 @@
           questionStore.delete(question.id);
           if (activeQuestionId === question.id) activeQuestionId = null;
         }
+        if (!questionStore.has(previousQuestionId)) {
+          question = null;
+        }
         blockQuestionMap.delete(blockId);
       }
 
       element.removeAttribute('data-tag');
       element.removeAttribute('data-saved');
-      hideQuestionPreview();
 
       if (!tag) {
-        removeTagControls();
-        renderActiveQuestion();
-        renderSavedQuestions();
-        return;
+        return { question: null };
       }
 
       if (!question) {
@@ -1201,8 +1239,7 @@
           }
         } else {
           if (!activeQuestionId || !questionStore.has(activeQuestionId)) {
-            removeTagControls();
-            return;
+            return { cancelled: true };
           }
           question = questionStore.get(activeQuestionId);
         }
@@ -1219,6 +1256,41 @@
       }
 
       question.lastUpdated = Date.now();
+      return { question };
+    };
+
+    const handleTagSelection = (element, tag) => {
+      const blockId = element.dataset.blockId;
+      if (!blockId) return;
+
+      const pendingIds = [...pendingSelectionQueue];
+      if (!pendingIds.includes(blockId)) {
+        pendingIds.push(blockId);
+      }
+
+      const seen = new Set();
+      const idsToProcess = pendingIds.filter((id) => {
+        if (!id || seen.has(id)) return false;
+        seen.add(id);
+        return true;
+      });
+
+      hideQuestionPreview();
+
+      for (const id of idsToProcess) {
+        const target = id === blockId ? element : getBlockElement(id);
+        if (!target) continue;
+        const result = applyTagToBlock(target, tag);
+        if (result?.cancelled) {
+          clearPendingSelection();
+          removeTagControls();
+          renderActiveQuestion();
+          renderSavedQuestions();
+          return;
+        }
+      }
+
+      clearPendingSelection();
       removeTagControls();
       renderActiveQuestion();
       renderSavedQuestions();
@@ -1503,6 +1575,9 @@
 
     const handleHighlightClick = (element) => {
       const blockId = element.dataset.blockId;
+      if (!blockId) return;
+      const shouldResetQueue = element.hasAttribute('data-tag') || element.hasAttribute('data-saved');
+      addToPendingSelection(blockId, { reset: shouldResetQueue });
       const mappedQuestionId = blockQuestionMap.get(blockId);
       if (mappedQuestionId && questionStore.has(mappedQuestionId)) {
         activeQuestionId = mappedQuestionId;
@@ -1522,6 +1597,7 @@
       blockQuestionMap.clear();
       activeQuestionId = null;
       draftCounter = 0;
+      clearPendingSelection();
       renderActiveQuestion();
       renderSavedQuestions();
       tagStatusLabel.textContent = 'Select a question block to start.';
@@ -1548,6 +1624,7 @@
       tagStatusLabel.textContent = 'Question saved. You can continue tagging content or start a new question.';
       showQuestionPreview(question);
       activeQuestionId = null;
+      clearPendingSelection();
       renderActiveQuestion();
     });
 
@@ -1566,6 +1643,10 @@
         .highlight-block:hover {
           box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
           transform: translateY(-1px);
+        }
+        .highlight-block[data-pending="true"] {
+          outline: 2px dashed rgba(59, 130, 246, 0.7);
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
         }
         .highlight-block[data-tag]::after {
           content: attr(data-tag);
@@ -1683,6 +1764,7 @@
 
       ensureIframeSelectionStyles(doc);
       closeDraftEditor();
+      clearPendingSelection();
       questionStore.clear();
       blockQuestionMap.clear();
       activeQuestionId = null;
