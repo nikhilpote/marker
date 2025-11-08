@@ -535,6 +535,27 @@
     }
     .question-preview ul li {
       margin: 0.15rem 0;
+      list-style: disc;
+    }
+    .question-preview ul li.snippet-html {
+      list-style: none;
+      padding: 0.15rem 0;
+    }
+    .question-preview ul li.snippet-html table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.35rem 0;
+      background: #ffffff;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .question-preview ul li.snippet-html table th,
+    .question-preview ul li.snippet-html table td {
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 0.35rem 0.5rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
     }
     .saved-questions {
       display: flex;
@@ -582,6 +603,26 @@
       margin: 0;
       padding-left: 1.2rem;
       color: #334155;
+    }
+    .saved-question-card ul li.snippet-html {
+      list-style: none;
+      padding: 0.15rem 0;
+    }
+    .saved-question-card ul li.snippet-html table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.35rem 0;
+      background: #ffffff;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .saved-question-card ul li.snippet-html table th,
+    .saved-question-card ul li.snippet-html table td {
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 0.35rem 0.5rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
     }
     .saved-question-card ul span {
       font-weight: 600;
@@ -996,7 +1037,11 @@
       if (!ids || !ids.size) return '<li>(none)</li>';
       return [...ids]
         .map((id) => createSnippetFromElement(getBlockElement(id)))
-        .map((text) => `<li>${text}</li>`)
+        .map((snippet) =>
+          snippet.type === 'html'
+            ? `<li class="snippet-html">${snippet.content}</li>`
+            : `<li>${snippet.content}</li>`
+        )
         .join('');
     };
 
@@ -1026,15 +1071,34 @@
     };
 
     const createSnippetFromElement = (element) => {
-      if (!element) return '(missing block)';
+      if (!element) return { type: 'text', content: '(missing block)' };
+
+      const clone = element.cloneNode(true);
+      clone.querySelectorAll('.tag-controls, .tag-edit-button').forEach((node) => node.remove());
+
+      const table = clone.querySelector('table');
+      if (table) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'snippet-table-wrapper';
+        wrapper.appendChild(table.cloneNode(true));
+        return { type: 'html', content: wrapper.innerHTML };
+      }
+
       const text = (element.innerText || element.textContent || '').replace(/\s+/g, ' ').trim();
-      if (text) return text.length > 180 ? `${text.slice(0, 180)}…` : text;
+      if (text) {
+        return {
+          type: 'text',
+          content: text.length > 180 ? `${text.slice(0, 180)}…` : text,
+        };
+      }
+
       const img = element.querySelector('img');
       if (img) {
         const alt = (img.getAttribute('alt') || '').trim();
-        return alt ? `[Image] ${alt}` : '[Image block]';
+        return { type: 'text', content: alt ? `[Image] ${alt}` : '[Image block]' };
       }
-      return '(empty block)';
+
+      return { type: 'text', content: '(empty block)' };
     };
 
     const getBlockElement = (blockId) => {
@@ -1126,7 +1190,14 @@
       if (!question) return 'Untitled';
       const firstId = [...question.questionBlocks][0];
       if (!firstId) return 'Untitled';
-      return createSnippetFromElement(getBlockElement(firstId));
+      const snippet = createSnippetFromElement(getBlockElement(firstId));
+      if (snippet.type === 'html') {
+        const temp = document.createElement('div');
+        temp.innerHTML = snippet.content;
+        const text = (temp.innerText || temp.textContent || '').trim();
+        return text || 'Untitled';
+      }
+      return snippet.content || 'Untitled';
     };
 
     const removeTagControls = (doc = htmlPreview.contentDocument) => {
@@ -1203,31 +1274,34 @@
         return;
       }
       savedQuestionsContainer.classList.remove('hidden');
+      const renderSnippetList = (ids, emptyLabel) => {
+        if (!ids.size) return `<li>${emptyLabel}</li>`;
+        return [...ids]
+          .map((id) => createSnippetFromElement(getBlockElement(id)))
+          .map((snippet) =>
+            snippet.type === 'html'
+              ? `<li class="snippet-html">${snippet.content}</li>`
+              : `<li>${snippet.content}</li>`
+          )
+          .join('');
+      };
+
       savedQuestionsContainer.innerHTML = saved
         .map((question, index) => {
-          const questionSnippets = [...question.questionBlocks]
-            .map((id) => createSnippetFromElement(getBlockElement(id)))
-            .map((text) => `<li>${text}</li>`)
-            .join('');
-          const optionSnippets = [...question.optionBlocks]
-            .map((id) => createSnippetFromElement(getBlockElement(id)))
-            .map((text) => `<li>${text}</li>`)
-            .join('');
-          const solutionSnippets = [...question.solutionBlocks]
-            .map((id) => createSnippetFromElement(getBlockElement(id)))
-            .map((text) => `<li>${text}</li>`)
-            .join('');
+          const questionSnippets = renderSnippetList(question.questionBlocks, '(empty)');
+          const optionSnippets = renderSnippetList(question.optionBlocks, '(none)');
+          const solutionSnippets = renderSnippetList(question.solutionBlocks, '(none)');
           return `
             <div class="saved-question-card" data-question-id="${question.id}">
               <h4>Question ${index + 1}</h4>
               <div><strong>Stem</strong>
-                <ul>${questionSnippets || '<li>(empty)</li>'}</ul>
+                <ul>${questionSnippets}</ul>
               </div>
               <div><strong>Options</strong>
-                <ul>${optionSnippets || '<li>(none)</li>'}</ul>
+                <ul>${optionSnippets}</ul>
               </div>
               <div><strong>Solution</strong>
-                <ul>${solutionSnippets || '<li>(none)</li>'}</ul>
+                <ul>${solutionSnippets}</ul>
               </div>
               <div class="saved-question-actions">
                 <button type="button" data-action="resume-edit">Edit Question</button>
