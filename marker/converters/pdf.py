@@ -173,27 +173,55 @@ class PdfConverter(BaseConverter):
             if temp_file is not None and os.path.exists(temp_file.name):
                 os.unlink(temp_file.name)
 
-    def build_document(self, filepath: str) -> Document:
+    def build_document(self, filepath: str, progress_callback=None) -> Document:
         provider_cls = provider_from_filepath(filepath)
         layout_builder = self.resolve_dependencies(self.layout_builder_class)
         line_builder = self.resolve_dependencies(LineBuilder)
         ocr_builder = self.resolve_dependencies(OcrBuilder)
         provider = provider_cls(filepath, self.config)
         document = DocumentBuilder(self.config)(
-            provider, layout_builder, line_builder, ocr_builder
+            provider,
+            layout_builder,
+            line_builder,
+            ocr_builder,
+            progress_callback=progress_callback,
         )
         structure_builder_cls = self.resolve_dependencies(StructureBuilder)
         structure_builder_cls(document)
 
-        for processor in self.processor_list:
+        if progress_callback:
+            progress_callback({"stage": "structure_analysis"})
+
+        processor_count = len(self.processor_list)
+        for index, processor in enumerate(self.processor_list, start=1):
             processor(document)
+            if progress_callback:
+                progress_callback(
+                    {
+                        "stage": "processors_progress",
+                        "current": index,
+                        "total": processor_count,
+                    }
+                )
+
+        if progress_callback:
+            progress_callback(
+                {
+                    "stage": "processors_complete",
+                    "total_processors": processor_count,
+                }
+            )
 
         return document
 
-    def __call__(self, filepath: str | io.BytesIO):
+    def __call__(self, filepath: str | io.BytesIO, progress_callback=None):
         with self.filepath_to_str(filepath) as temp_path:
-            document = self.build_document(temp_path)
+            document = self.build_document(temp_path, progress_callback=progress_callback)
             self.page_count = len(document.pages)
             renderer = self.resolve_dependencies(self.renderer)
+            if progress_callback:
+                progress_callback({"stage": "rendering_start"})
             rendered = renderer(document)
+            if progress_callback:
+                progress_callback({"stage": "rendering_complete"})
         return rendered

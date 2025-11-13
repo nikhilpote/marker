@@ -28,12 +28,66 @@ class DocumentBuilder(BaseBuilder):
         "Disable OCR processing.",
     ] = False
 
-    def __call__(self, provider: PdfProvider, layout_builder: LayoutBuilder, line_builder: LineBuilder, ocr_builder: OcrBuilder):
+    def __call__(
+        self,
+        provider: PdfProvider,
+        layout_builder: LayoutBuilder,
+        line_builder: LineBuilder,
+        ocr_builder: OcrBuilder,
+        progress_callback=None,
+    ):
+        total_pages = len(provider.page_range)
+        if progress_callback:
+            progress_callback(
+                {
+                    "stage": "document_preparation",
+                    "processed_pages": 0,
+                    "total_pages": total_pages,
+                }
+            )
+
         document = self.build_document(provider)
+
+        if progress_callback:
+            progress_callback(
+                {
+                    "stage": "layout_detection",
+                    "processed_pages": 0,
+                    "total_pages": total_pages,
+                }
+            )
         layout_builder(document, provider)
+
+        if progress_callback:
+            progress_callback(
+                {
+                    "stage": "line_extraction",
+                    "processed_pages": 0,
+                    "total_pages": total_pages,
+                }
+            )
         line_builder(document, provider)
+
         if not self.disable_ocr:
+            if progress_callback:
+                progress_callback(
+                    {
+                        "stage": "ocr_processing",
+                        "processed_pages": 0,
+                        "total_pages": total_pages,
+                    }
+                )
             ocr_builder(document, provider)
+
+        if progress_callback:
+            progress_callback(
+                {
+                    "stage": "document_ready",
+                    "processed_pages": total_pages,
+                    "total_pages": total_pages,
+                }
+            )
+
         return document
 
     def build_document(self, provider: PdfProvider):

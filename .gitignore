@@ -177,5 +177,7 @@ cython_debug/
 .idea/
 
 .vscode/
-\n+# Marker outputs
+
+# Marker outputs
 output/
+job_outputs/

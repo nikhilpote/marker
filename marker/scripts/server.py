@@ -22,6 +22,8 @@ from marker.settings import settings
 from marker.config.parser import ConfigParser
 from marker.output import text_from_rendered, save_output
 from marker.scripts.render_from_json import render_json_document
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 app_data = {}
 
@@ -53,6 +55,11 @@ class JobResponse(BaseModel):
     error: Optional[str] = None
     result: Optional[JobResult] = None
     output_dir: Optional[str] = None
+    progress: int = 0
+    stage: Optional[str] = None
+    detail: Optional[str] = None
+    processed_pages: Optional[int] = None
+    total_pages: Optional[int] = None
 
 
 def _job_lock() -> Lock:
@@ -82,9 +89,94 @@ def _process_job(job_id: str):
     if not job:
         return
 
-    _update_job(job_id, status=JobStatus.processing)
+    _update_job(job_id, status=JobStatus.processing, detail=None)
+    last_progress = int(job.get("progress", 0) or 0)
+    total_pages_state = {"value": job.get("total_pages")}
+
+    def set_progress(progress=None, stage=None, detail=None, processed=None, total=None):
+        nonlocal last_progress
+        updates = {}
+        if progress is not None:
+            clamped = max(0, min(99, int(progress)))
+            if clamped < last_progress:
+                clamped = last_progress
+            updates["progress"] = clamped
+            last_progress = clamped
+        if stage is not None:
+            updates["stage"] = stage
+        if detail is not None:
+            updates["detail"] = detail
+        if processed is not None:
+            updates["processed_pages"] = processed
+        if total is not None:
+            updates["total_pages"] = total
+        if updates:
+            _update_job(job_id, **updates)
+
+    set_progress(progress=5, stage="Initializing GPU pipeline")
+
     input_path = job["input_path"]
     output_dir = job["output_dir"]
+
+    stage_progress_map = {
+        "document_preparation": (12, "Preparing document"),
+        "layout_detection": (25, "Detecting layout regions"),
+        "line_extraction": (38, "Extracting text lines"),
+        "ocr_processing": (55, "Running OCR"),
+        "document_ready": (60, "Compiling pages"),
+        "structure_analysis": (68, "Analyzing structure"),
+        "processors_complete": (88, "Refinements complete"),
+        "rendering_start": (92, "Rendering outputs"),
+        "rendering_complete": (96, "Rendering complete"),
+    }
+    processor_progress_range = (68, 88)
+
+    def progress_callback(event):
+        if not isinstance(event, dict):
+            return
+        stage = event.get("stage")
+        if event.get("total_pages") is not None:
+            total_pages_state["value"] = event["total_pages"]
+        processed_pages = event.get("processed_pages")
+
+        if stage == "processors_progress":
+            total_steps = max(1, int(event.get("total", 1)))
+            current = int(min(max(event.get("current", 0), 0), total_steps))
+            start, end = processor_progress_range
+            fraction = current / total_steps
+            progress_value = start + fraction * (end - start)
+            detail_text = f"Processor {current}/{total_steps} applied"
+            set_progress(
+                progress=progress_value,
+                stage="Applying refinements",
+                detail=detail_text,
+                processed=processed_pages,
+                total=total_pages_state["value"],
+            )
+            return
+
+        if stage in stage_progress_map:
+            progress_value, label = stage_progress_map[stage]
+            detail_text = event.get("detail")
+            if stage == "document_preparation" and detail_text is None and total_pages_state["value"]:
+                detail_text = f"Detected {total_pages_state['value']} page(s)"
+            set_progress(
+                progress=progress_value,
+                stage=label,
+                detail=detail_text,
+                processed=processed_pages,
+                total=total_pages_state["value"],
+            )
+            return
+
+        if stage is not None:
+            set_progress(
+                progress=event.get("progress"),
+                stage=stage,
+                detail=event.get("detail"),
+                processed=processed_pages,
+                total=total_pages_state["value"],
+            )
 
     try:
         options = {
@@ -108,8 +200,9 @@ def _process_job(job_id: str):
             renderer=config_parser.get_renderer(),
             llm_service=config_parser.get_llm_service(),
         )
-        rendered = converter(input_path)
+        rendered = converter(input_path, progress_callback=progress_callback)
         base_name = config_parser.get_base_filename(input_path)
+        set_progress(stage="Saving outputs", progress=97)
         save_output(rendered, output_dir, base_name)
 
         json_path = os.path.join(output_dir, f"{base_name}.json")
@@ -149,10 +242,21 @@ def _process_job(job_id: str):
                 metadata_path=metadata_rel,
                 assets=assets,
             ),
+            progress=100,
+            stage="Completed",
+            detail="Conversion successful",
+            processed_pages=total_pages_state["value"],
+            total_pages=total_pages_state["value"],
         )
     except Exception as exc:
         traceback.print_exc()
-        _update_job(job_id, status=JobStatus.failed, error=str(exc))
+        _update_job(
+            job_id,
+            status=JobStatus.failed,
+            error=str(exc),
+            stage="Failed",
+            detail=str(exc),
+        )
 
 
 @asynccontextmanager
@@ -172,6 +276,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -318,6 +429,11 @@ async def create_job(file: UploadFile = File(...)):
         "result": None,
         "input_path": input_path,
         "output_dir": job_dir,
+        "progress": 0,
+        "stage": "Queued",
+        "detail": None,
+        "processed_pages": 0,
+        "total_pages": None,
     }
 
     with _job_lock():
@@ -330,6 +446,10 @@ async def create_job(file: UploadFile = File(...)):
         filename=file.filename,
         status=JobStatus.queued,
         output_dir=job_dir,
+        progress=0,
+        stage="Queued",
+        processed_pages=0,
+        total_pages=None,
     )
 
 
@@ -346,6 +466,11 @@ async def get_job(job_id: str):
         error=job.get("error"),
         result=job.get("result"),
         output_dir=job.get("output_dir"),
+        progress=job.get("progress", 0),
+        stage=job.get("stage"),
+        detail=job.get("detail"),
+        processed_pages=job.get("processed_pages"),
+        total_pages=job.get("total_pages"),
     )
 
 
@@ -389,6 +514,11 @@ async def import_json(file: UploadFile = File(...)):
         ),
         "input_path": dest_path,
         "output_dir": job_dir,
+        "progress": 100,
+        "stage": "Completed",
+        "detail": None,
+        "processed_pages": None,
+        "total_pages": None,
     }
 
     with _job_lock():
@@ -400,6 +530,8 @@ async def import_json(file: UploadFile = File(...)):
         status=JobStatus.completed,
         result=job_record["result"],
         output_dir=job_dir,
+        progress=100,
+        stage="Completed",
     )
 
 
@@ -415,3 +547,59 @@ def server_cli(port: int, host: str):
         host=host,
         port=port,
     )
+
+
+@app.post("/api/upload", response_model=JobResponse)
+async def api_upload(file: UploadFile = File(...)):
+    return await create_job(file)
+
+
+@app.post("/api/import-json", response_model=JobResponse)
+async def api_import_json(file: UploadFile = File(...)):
+    return await import_json(file)
+
+
+@app.get("/api/jobs/{job_id}/status", response_model=JobResponse)
+async def api_job_status(job_id: str):
+    return await get_job(job_id)
+
+
+@app.get("/api/jobs/{job_id}/file")
+async def api_job_file(job_id: str, type: str, name: Optional[str] = None):
+    job = _get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    if job["status"] != JobStatus.completed:
+        raise HTTPException(status_code=409, detail="Job is not complete")
+
+    output_dir = job.get("output_dir")
+    if not output_dir:
+        raise HTTPException(status_code=404, detail="Job output unavailable")
+
+    result = job.get("result")
+    relative_path = None
+
+    if type == "json" and result and result.json_path:
+        relative_path = result.json_path
+    elif type == "html" and result and result.html_path:
+        relative_path = result.html_path
+    elif type == "metadata" and result and result.metadata_path:
+        relative_path = result.metadata_path
+    elif type == "asset":
+        if not name:
+            raise HTTPException(status_code=400, detail="Asset name required")
+        relative_path = name
+    else:
+        raise HTTPException(status_code=400, detail=f"Unsupported type {type}")
+
+    if not relative_path:
+        raise HTTPException(status_code=404, detail="Requested file not found")
+
+    absolute_path = os.path.abspath(os.path.join(output_dir, relative_path))
+    output_dir_abs = os.path.abspath(output_dir)
+    if not absolute_path.startswith(output_dir_abs):
+        raise HTTPException(status_code=400, detail="Invalid file path")
+    if not os.path.exists(absolute_path):
+        raise HTTPException(status_code=404, detail="File missing on server")
+
+    return FileResponse(absolute_path)
