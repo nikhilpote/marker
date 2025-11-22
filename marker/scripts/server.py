@@ -2,6 +2,7 @@ import base64
 import asyncio
 import os
 import traceback
+import gc
 from contextlib import asynccontextmanager
 from concurrent.futures import ThreadPoolExecutor
 from enum import Enum
@@ -24,6 +25,13 @@ from marker.output import text_from_rendered, save_output
 from marker.scripts.render_from_json import render_json_document
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+
+# Import torch for GPU memory management
+try:
+    import torch
+    TORCH_AVAILABLE = True
+except ImportError:
+    TORCH_AVAILABLE = False
 
 app_data = {}
 
@@ -84,10 +92,33 @@ def _get_job(job_id: str) -> Dict:
         return _job_store().get(job_id)
 
 
+def _clear_gpu_memory():
+    """Clear GPU memory to prevent memory corruption."""
+    if not TORCH_AVAILABLE:
+        return
+    
+    try:
+        if torch.cuda.is_available():
+            # Clear CUDA cache
+            torch.cuda.empty_cache()
+            # Synchronize to ensure all operations are complete
+            torch.cuda.synchronize()
+            # Force garbage collection
+            gc.collect()
+            # Clear cache again after GC
+            torch.cuda.empty_cache()
+            print("✓ GPU memory cleared")
+    except Exception as e:
+        print(f"⚠️ Warning: Failed to clear GPU memory: {e}")
+
+
 def _process_job(job_id: str):
     job = _get_job(job_id)
     if not job:
         return
+
+    # Clear GPU memory before starting job
+    _clear_gpu_memory()
 
     _update_job(job_id, status=JobStatus.processing, detail=None)
     last_progress = int(job.get("progress", 0) or 0)
@@ -257,10 +288,20 @@ def _process_job(job_id: str):
             stage="Failed",
             detail=str(exc),
         )
+    finally:
+        # Always clear GPU memory after job completion (success or failure)
+        _clear_gpu_memory()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Set CUDA memory allocation config to prevent memory corruption
+    if "PYTORCH_CUDA_ALLOC_CONF" not in os.environ:
+        os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+    
+    # Clear GPU memory on startup
+    _clear_gpu_memory()
+    
     app_data["models"] = create_model_dict()
     app_data["jobs"] = {}
     app_data["job_lock"] = Lock()
@@ -269,6 +310,9 @@ async def lifespan(app: FastAPI):
 
     yield
 
+    # Clear GPU memory on shutdown
+    _clear_gpu_memory()
+    
     if "models" in app_data:
         del app_data["models"]
     if "executor" in app_data:
