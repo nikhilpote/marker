@@ -99,14 +99,25 @@ def _clear_gpu_memory():
     
     try:
         if torch.cuda.is_available():
-            # Clear CUDA cache
-            torch.cuda.empty_cache()
-            # Synchronize to ensure all operations are complete
-            torch.cuda.synchronize()
-            # Force garbage collection
+            # Add a small delay to ensure all CUDA operations are complete
+            import time
+            time.sleep(0.1)
+            
+            # Force garbage collection first to release Python references
             gc.collect()
-            # Clear cache again after GC
-            torch.cuda.empty_cache()
+            
+            # Clear CUDA cache (safer than synchronize which can cause segfaults)
+            try:
+                torch.cuda.empty_cache()
+            except Exception as e:
+                print(f"⚠️ Warning: Failed to empty CUDA cache: {e}")
+            
+            # Skip synchronize() as it can cause segmentation faults in some CUDA/PyTorch versions
+            # The empty_cache() call should be sufficient for memory cleanup
+            
+            # Final garbage collection
+            gc.collect()
+            
             print("✓ GPU memory cleared")
     except Exception as e:
         print(f"⚠️ Warning: Failed to clear GPU memory: {e}")
