@@ -73,6 +73,13 @@ def _upload_dir_to_s3(s3, local_dir: str, bucket: str, prefix: str):
     show_default=True,
     help="Visibility timeout in seconds (should exceed worst-case processing time)",
 )
+@click.option(
+    "--delete-on-receive",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Delete the SQS message immediately after receiving/validating it (NOT recommended, but prevents retries).",
+)
 def sqs_worker_cli(
     queue_url: str,
     region: Optional[str],
@@ -82,6 +89,7 @@ def sqs_worker_cli(
     work_dir: str,
     wait_time: int,
     visibility_timeout: int,
+    delete_on_receive: bool,
 ):
     """
     Expected SQS message body JSON (minimum):
@@ -141,6 +149,13 @@ def sqs_worker_cli(
         local_input = os.path.join(job_dir, filename)
 
         try:
+            if delete_on_receive:
+                # NOTE: This trades reliability for simplicity: if the instance crashes mid-job,
+                # the message is already gone and the job will not be retried.
+                sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=receipt)
+                receipt = None
+                click.echo(f"[{job_id}] Deleted message on receive (no retries).")
+
             click.echo(f"[{job_id}] Downloading s3://{in_bucket}/{in_key}")
             s3.download_file(in_bucket, in_key, local_input)
 
@@ -192,8 +207,9 @@ def sqs_worker_cli(
             if index_html_path.exists():
                 s3.upload_file(str(index_html_path), out_bucket, f"{out_root}/index.html")
 
-            # Delete message only on success
-            sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=receipt)
+            # Delete message only on success (unless already deleted on receive)
+            if receipt is not None:
+                sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=receipt)
             click.echo(f"[{job_id}] Done.")
 
         except Exception as exc:
