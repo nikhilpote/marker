@@ -14,6 +14,7 @@ except ImportError as exc:  # pragma: no cover
 from marker.config.parser import ConfigParser
 from marker.models import create_model_dict
 from marker.output import save_output
+from marker.scripts.render_from_json import render_json_document
 
 
 def _load_message_body(msg: Dict[str, Any]) -> Dict[str, Any]:
@@ -173,10 +174,23 @@ def sqs_worker_cli(
             base_name = config_parser.get_base_filename(local_input)
             save_output(rendered, job_dir, base_name)
 
+            # Render "our" HTML from the Marker JSON output (stable filename for admin panel).
+            json_path = Path(job_dir) / f"{base_name}.json"
+            index_html_path = Path(job_dir) / "index.html"
+            if json_path.exists():
+                render_json_document(json_path, output_path=index_html_path)
+
             # Upload everything in job_dir to S3 under output_prefix/job_id/
             out_root = f"{out_prefix.rstrip('/')}/{job_id}".strip("/")
             click.echo(f"[{job_id}] Uploading outputs to s3://{out_bucket}/{out_root}/")
             _upload_dir_to_s3(s3, job_dir, out_bucket, out_root)
+
+            # Also upload stable names so the admin panel can fetch by job_id without guessing base_name.
+            # (Keeps the original {base_name}.json too.)
+            if json_path.exists():
+                s3.upload_file(str(json_path), out_bucket, f"{out_root}/job.json")
+            if index_html_path.exists():
+                s3.upload_file(str(index_html_path), out_bucket, f"{out_root}/index.html")
 
             # Delete message only on success
             sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=receipt)
